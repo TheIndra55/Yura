@@ -1,0 +1,47 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net5.0-windows</TargetFramework>
+    <UseWPF>true</UseWPF>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="Images\BinaryFile.png" />
+    <None Remove="Images\ClassFile.png" />
+    <None Remove="Images\FolderClosed.png" />
+    <None Remove="Images\Image.png" />
+    <None Remove="Images\SoundFile.png" />
+    <None Remove="Images\TextFile.png" />
+    <None Remove="Images\ZipFile.png" />
+    <None Remove="Yura.ico" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Images\BinaryFile.png" />
+    <Resource Include="Images\ClassFile.png" />
+    <Resource Include="Images\FolderClosed.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Images\Image.png" />
+    <Resource Include="Images\SoundFile.png" />
+    <Resource Include="Images\TextFile.png" />
+    <Resource Include="Images\ZipFile.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Yura.ico" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="FileLists\(PC) Tomb Raider Anniversary.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="FileLists\(PSP) Tomb Raider Anniversary.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="FileLists\(Wii) Tomb Raider Anniversary.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
+</Project>
