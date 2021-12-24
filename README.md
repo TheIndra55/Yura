@@ -6,7 +6,7 @@ Yura is a bigfile browser for Tomb Raider games, it allows you to browse, previe
 
 ![image](https://user-images.githubusercontent.com/15322107/147368936-1174fb9c-89a3-475f-86b7-41fc0d1e17a3.png)
 ![image](https://user-images.githubusercontent.com/15322107/147368937-d5ceedbc-2c51-4a6b-aa32-47bf4853ff9a.png)
-![image](https://user-images.githubusercontent.com/15322107/147369128-dcc3fd08-4f45-4d72-8656-d29c0736a764.png)
+![image](https://user-images.githubusercontent.com/15322107/147372856-eada5598-73af-4071-a84e-4c735fe62a71.png)
 
 ## File lists
 

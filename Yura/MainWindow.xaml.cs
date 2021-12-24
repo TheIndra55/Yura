@@ -50,8 +50,8 @@ namespace Yura
                 { ".drm", new Tuple<string, BitmapImage>("Data Ram", _classIcon) },
                 { ".mul", new Tuple<string, BitmapImage>("MultiplexStream", _soundIcon) },
                 { ".raw", new Tuple<string, BitmapImage>("RAW Image", _imageIcon) },
-                { ".mus", new Tuple<string, BitmapImage>("Music", _imageIcon) },
-                { ".sam", new Tuple<string, BitmapImage>("Music Sample", _imageIcon) },
+                { ".mus", new Tuple<string, BitmapImage>("Music", _soundIcon) },
+                { ".sam", new Tuple<string, BitmapImage>("Music Sample", _soundIcon) },
                 { ".ids", new Tuple<string, BitmapImage>("IDMap", _textIcon) },
                 { ".txt", new Tuple<string, BitmapImage>("Text File", _textIcon) },
                 { ".sch", new Tuple<string, BitmapImage>("SchemaFile", _textIcon) }
@@ -181,16 +181,27 @@ namespace Yura
 
             var file = _bigfile.OpenFile(item.File);
 
-            // write file to temp folder
+            // if RAW magic open in texture viewer
+            if (file[0] == 33 && file[1] == 'W' && file[2] == 'A' && file[3] == 'R')
+            {
+                var viewer = new TextureViewer();
+                viewer.Texture = file;
+                viewer.Title = item.Name;
+
+                viewer.Show();
+
+                return;
+            }
+
+            // no file handler, open file with default Windows file handler
             var path = Path.Combine(Path.GetTempPath(), "Yura", item.Name);
             Directory.CreateDirectory(Path.GetTempPath() + "\\Yura");
 
             File.WriteAllBytes(path, file);
 
-            // open file with default file handler
             Process.Start("explorer", "\"" + path + "\"");
         }
-
+        
         private void ContextMenu_ContextMenuOpening(object sender, RoutedEventArgs e)
         {
             ExportBtn.IsEnabled = !(FileView.SelectedItem == null);

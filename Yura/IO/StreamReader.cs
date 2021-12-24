@@ -12,13 +12,24 @@ namespace Yura.IO
         private bool _littleEndian;
 
         /// <summary>
-        /// Creates a new StreamReader
+        /// Creates a new StreamReader from a stream
         /// </summary>
         /// <param name="stream">The stream to read from</param>
         /// <param name="littleEndian">Whether the data should be read little endian</param>
         public StreamReader(Stream stream, bool littleEndian = true)
         {
             _stream = stream;
+            _littleEndian = littleEndian;
+        }
+
+        /// <summary>
+        /// Creates a new StreamReader from a buffer
+        /// </summary>
+        /// <param name="buffer">The buffer to read from</param>
+        /// <param name="littleEndian">Whether the data should be read little endian</param>
+        public StreamReader(byte[] buffer, bool littleEndian = true)
+        {
+            _stream = new MemoryStream(buffer);
             _littleEndian = littleEndian;
         }
 
