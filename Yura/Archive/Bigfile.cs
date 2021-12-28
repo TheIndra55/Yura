@@ -129,7 +129,8 @@ namespace Yura.Archive
         /// <returns>The content of the file</returns>
         public byte[] OpenFile(ArchivedFile file)
         {
-            var bigfile = (file.Offset << 11) / Alignment;
+            var align = Alignment >> 11;
+            var bigfile = file.Offset / align;
 
             string filename;
             if (_file.EndsWith(".000"))
@@ -143,12 +144,13 @@ namespace Yura.Archive
 
                 // one file, set alignment to that file size
                 Alignment = (int)new FileInfo(_file).Length;
+                align = Alignment >> 11;
             }
 
             var stream = File.OpenRead(filename);
             var bytes = new byte[file.Size];
 
-            stream.Position = (file.Offset << 11) % Alignment;
+            stream.Position = file.Offset % align << 11;
             stream.Read(bytes, 0, (int)file.Size);
 
             return bytes;

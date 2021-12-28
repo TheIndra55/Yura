@@ -54,6 +54,16 @@ namespace Yura
             }
         }
 
+        public TextureFormat TextureFormat
+        {
+            get
+            {
+                var format = (TextureFormatSelect.SelectedItem as ComboBoxItem).Content.ToString();
+
+                return (TextureFormat)Enum.Parse(typeof(TextureFormat), format, true);
+            }
+        }
+
         public string FileList
         {
             get
@@ -67,5 +77,12 @@ namespace Yura
     {
         public string Name { get; set; }
         public string Path { get; set; }
+    }
+
+    public enum TextureFormat
+    {
+        Pc,
+        Wii,
+        Ps3
     }
 }

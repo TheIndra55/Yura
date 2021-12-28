@@ -20,7 +20,8 @@
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
-            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
 
         <Label Grid.Column="0" Grid.Row="0">File list</Label>
@@ -38,9 +39,16 @@
             <ComboBoxItem>Big-endian</ComboBoxItem>
         </ComboBox>
 
-        <Label Grid.Column="0" Grid.Row="2">Alignment</Label>
-        <TextBox Name="AlignmentField" VerticalContentAlignment="Center" Grid.Column="1" Grid.Row="2">0x9600000</TextBox>
+        <Label Grid.Column="0" Grid.Row="2">Texture format</Label>
+        <ComboBox Name="TextureFormatSelect" Grid.Column="1" Grid.Row="2">
+            <ComboBoxItem IsSelected="True">PC</ComboBoxItem>
+            <ComboBoxItem>Wii</ComboBoxItem>
+            <ComboBoxItem>PS3</ComboBoxItem>
+        </ComboBox>
 
-        <Button Grid.Row="3" Name="OkButton" Padding="5" Margin="10" Grid.ColumnSpan="2" HorizontalAlignment="Right" Click="OkButton_Click">Open</Button>
+        <Label Grid.Column="0" Grid.Row="3">Alignment</Label>
+        <TextBox Name="AlignmentField" VerticalContentAlignment="Center" Grid.Column="1" Grid.Row="3">0x9600000</TextBox>
+
+        <Button Grid.Row="4" Name="OkButton" Padding="5" Margin="10" Grid.ColumnSpan="2" HorizontalAlignment="Right" Click="OkButton_Click">Open</Button>
     </Grid>
 </Window>

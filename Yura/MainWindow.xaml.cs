@@ -29,6 +29,9 @@ namespace Yura
         // dictionary of ext,file type for names and icons
         private Dictionary<string, Tuple<string, BitmapImage>> _fileTypes;
 
+        private bool _littleEndian;
+        private TextureFormat _textureFormat;
+
         // the current open bigfile
         private Bigfile _bigfile;
 
@@ -65,15 +68,18 @@ namespace Yura
 
             if (dialog.ShowDialog() == true)
             {
-                OpenBigfile(bigfile, dialog.FileList, dialog.LittleEndian, dialog.Alignment);
+                _littleEndian = dialog.LittleEndian;
+                _textureFormat = dialog.TextureFormat;
+
+                OpenBigfile(bigfile, dialog.FileList, dialog.Alignment);
             }
         }
 
-        private void OpenBigfile(string bigfile, string fileList, bool littleEndian, int alignment)
+        private void OpenBigfile(string bigfile, string fileList, int alignment)
         {
             var list = (fileList == null) ? null : new FileList(fileList);
 
-            _bigfile = new Bigfile(bigfile, list, littleEndian);
+            _bigfile = new Bigfile(bigfile, list, _littleEndian);
             _bigfile.Alignment = alignment;
 
             try
@@ -185,6 +191,9 @@ namespace Yura
             if (file[0] == 33 && file[1] == 'W' && file[2] == 'A' && file[3] == 'R')
             {
                 var viewer = new TextureViewer();
+                viewer.TextureFormat = _textureFormat;
+                viewer.LittleEndian = _littleEndian;
+
                 viewer.Texture = file;
                 viewer.Title = item.Name;
 

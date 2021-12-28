@@ -36,7 +36,7 @@ namespace Yura.IO
         private byte[] Read(int bytes)
         {
             var data = new byte[bytes];
-            _stream.Read(data, 0, 4);
+            _stream.Read(data, 0, bytes);
 
             // i guess this kinda assumes the platform is little endian
             if (!_littleEndian)
@@ -47,14 +47,14 @@ namespace Yura.IO
             return data;
         }
 
-        public int ReadInt16()
+        public short ReadInt16()
         {
             var data = Read(2);
 
             return BitConverter.ToInt16(data);
         }
 
-        public uint ReadUInt16()
+        public ushort ReadUInt16()
         {
             var data = Read(2);
 
