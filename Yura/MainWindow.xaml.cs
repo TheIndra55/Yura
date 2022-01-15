@@ -218,16 +218,36 @@ namespace Yura
 
         private void ExportBtn_Click(object sender, RoutedEventArgs e)
         {
-            var item = FileView.SelectedItem as FileViewFile;
-
-            var dialog = new SaveFileDialog();
-            dialog.FileName = item.Name;
-
-            if (dialog.ShowDialog() == true)
+            // export multiple files
+            if (FileView.SelectedItems.Count > 1)
             {
-                // export file
-                var file = _bigfile.OpenFile(item.File);
-                File.WriteAllBytes(dialog.FileName, file);
+                // since WPF still does not have FolderBrowserDialog in 2021
+                var dialog = new System.Windows.Forms.FolderBrowserDialog();
+
+                if (dialog.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+                {
+                    foreach(var item in FileView.SelectedItems.Cast<FileViewFile>())
+                    {
+                        var path = Path.Combine(dialog.SelectedPath, item.Name);
+
+                        var file = _bigfile.OpenFile(item.File);
+                        File.WriteAllBytes(path, file);
+                    }
+                }
+            }
+            else
+            {
+                // export single file
+                var item = FileView.SelectedItem as FileViewFile;
+
+                var dialog = new SaveFileDialog();
+                dialog.FileName = item.Name;
+
+                if (dialog.ShowDialog() == true)
+                {
+                    var file = _bigfile.OpenFile(item.File);
+                    File.WriteAllBytes(dialog.FileName, file);
+                }
             }
         }
 
