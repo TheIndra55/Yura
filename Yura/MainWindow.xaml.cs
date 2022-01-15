@@ -202,6 +202,17 @@ namespace Yura
                 return;
             }
 
+            if (item.Name == "locals.bin")
+            {
+                var viewer = new LocaleViewer();
+                viewer.LittleEndian = _littleEndian;
+                viewer.Data = file;
+
+                viewer.Show();
+
+                return;
+            }
+
             // no file handler, open file with default Windows file handler
             var path = Path.Combine(Path.GetTempPath(), "Yura", item.Name);
             Directory.CreateDirectory(Path.GetTempPath() + "\\Yura");

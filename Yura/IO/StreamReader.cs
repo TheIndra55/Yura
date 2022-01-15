@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.IO;
+using System.Text;
 
 namespace Yura.IO
 {
@@ -73,6 +75,23 @@ namespace Yura.IO
             var data = Read(4);
 
             return BitConverter.ToUInt32(data);
+        }
+
+        /// <summary>
+        /// Reads a null-terminated string from the stream
+        /// </summary>
+        /// <returns>The readed string</returns>
+        public string ReadString()
+        {
+            var chars = new List<byte>();
+
+            while(_stream.ReadByte() != 0)
+            {
+                _stream.Position--;
+                chars.Add((byte)_stream.ReadByte());
+            }
+
+            return Encoding.UTF8.GetString(chars.ToArray());
         }
 
         public Stream BaseStream => _stream;
