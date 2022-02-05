@@ -2,13 +2,16 @@
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media.Imaging;
 using Yura.Archive;
+using Yura.Formats;
 
 namespace Yura
 {
@@ -150,11 +153,17 @@ namespace Yura
                     name = file.Name.Split("\\").Last();
                 }
 
+                var specialisation = file.SpecialisationMask;
+
+                // TODO find out what these bits are
+                specialisation &= ~(uint)0x000000007ffffc00;
+
                 var view = new FileViewFile
                 {
                     Name = name,
                     Type = type.Item1,
                     Size = file.Size,
+                    Specialisation = ((SpecialisationFlags)specialisation).ToString(),
 
                     Image = type.Item2,
                     File = file
@@ -164,6 +173,7 @@ namespace Yura
             }
 
             FileView.ItemsSource = filesview;
+            FileView.Items.SortDescriptions.Clear();
         }
 
         private Tuple<string, BitmapImage> GetFileType(string ext)
@@ -186,9 +196,10 @@ namespace Yura
             }
 
             var file = _bigfile.OpenFile(item.File);
+            var size = item.File.Size;
 
             // if RAW magic open in texture viewer
-            if (file[0] == 33 && file[1] == 'W' && file[2] == 'A' && file[3] == 'R')
+            if (size > 4 && file[0] == 33 && file[1] == 'W' && file[2] == 'A' && file[3] == 'R')
             {
                 var viewer = new TextureViewer();
                 viewer.TextureFormat = _textureFormat;
@@ -273,6 +284,23 @@ namespace Yura
                 OpenBigfileDialog(dialog.FileName);
             }
         }
+
+        private void GridViewColumnHeader_Click(object sender, RoutedEventArgs e)
+        {
+            var column = sender as GridViewColumnHeader;
+
+            var currentSort = FileView.Items.SortDescriptions.FirstOrDefault();
+            var direction = ListSortDirection.Ascending;
+
+            if (currentSort != default)
+            {
+                direction = currentSort.Direction == ListSortDirection.Descending ? ListSortDirection.Ascending : ListSortDirection.Descending;
+
+                FileView.Items.SortDescriptions.Clear();
+            }
+
+            FileView.Items.SortDescriptions.Add(new SortDescription((string)column.Tag, direction));
+        }
     }
 
     public class DirectoryViewFolder
@@ -315,6 +343,7 @@ namespace Yura
         public string Name { get; set; }
         public string Type { get; set; }
         public uint Size { get; set; }
+        public string Specialisation { get; set; }
 
         public ArchivedFile File { get; set; }
     }

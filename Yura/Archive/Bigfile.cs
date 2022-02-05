@@ -70,6 +70,7 @@ namespace Yura.Archive
                 file.Hash = _hashes[i];
                 file.Size = reader.ReadUInt32();
                 file.Offset = reader.ReadUInt32();
+                file.SpecialisationMask = reader.ReadUInt32();
 
                 // check if hash exist in file list
                 if (_fileList != null &&_fileList.Files.TryGetValue(file.Hash, out string name))
@@ -78,7 +79,7 @@ namespace Yura.Archive
                 }
                 Files.Add(file);
 
-                reader.BaseStream.Position += 8;
+                reader.BaseStream.Position += 4;
             }
 
             // will not reuse this stream later since files could be in other files

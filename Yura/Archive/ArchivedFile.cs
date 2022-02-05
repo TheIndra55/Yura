@@ -26,5 +26,10 @@
         /// The offset in one or more bigfiles
         /// </summary>
         public uint Offset { get; set; }
+
+        /// <summary>
+        /// The specialisation mask
+        /// </summary>
+        public uint SpecialisationMask { get; set; }
     }
 }

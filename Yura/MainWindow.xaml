@@ -7,7 +7,7 @@
         mc:Ignorable="d"
         Title="Codename Yura"
         Icon="Yura.ico"
-        Height="600" Width="800">
+        Height="1000" Width="1200" WindowState="Maximized">
     <Window.CommandBindings>
         <CommandBinding Command="Open" Executed="OpenCommand_Executed"/>
     </Window.CommandBindings>
@@ -52,7 +52,7 @@
             
             <ListView.View>
                 <GridView>
-                    <GridViewColumn Width="300" Header="Name">
+                    <GridViewColumn Width="300">
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
                                 <StackPanel Orientation="Horizontal">
@@ -61,9 +61,25 @@
                                 </StackPanel>
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>
+                        <GridViewColumn.Header>
+                            <GridViewColumnHeader Tag="Name" Click="GridViewColumnHeader_Click">Name</GridViewColumnHeader>
+                        </GridViewColumn.Header>
                     </GridViewColumn>
-                    <GridViewColumn Width="200" Header="Type" DisplayMemberBinding="{Binding Type}"/>
-                    <GridViewColumn Width="100" Header="Size" DisplayMemberBinding="{Binding Size}"/>
+                    <GridViewColumn Width="200" DisplayMemberBinding="{Binding Type}">
+                        <GridViewColumn.Header>
+                            <GridViewColumnHeader Tag="Type" Click="GridViewColumnHeader_Click">Type</GridViewColumnHeader>
+                        </GridViewColumn.Header>
+                    </GridViewColumn>
+                    <GridViewColumn Width="100" DisplayMemberBinding="{Binding Size}">
+                        <GridViewColumn.Header>
+                            <GridViewColumnHeader Tag="Size" Click="GridViewColumnHeader_Click">Size</GridViewColumnHeader>
+                        </GridViewColumn.Header>
+                    </GridViewColumn>
+                    <GridViewColumn Width="300" DisplayMemberBinding="{Binding Specialisation}">
+                        <GridViewColumn.Header>
+                            <GridViewColumnHeader Tag="Specialisation" Click="GridViewColumnHeader_Click">Specialisation</GridViewColumnHeader>
+                        </GridViewColumn.Header>
+                    </GridViewColumn>
                 </GridView>
             </ListView.View>
         </ListView>
