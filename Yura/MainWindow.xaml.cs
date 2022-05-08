@@ -153,17 +153,11 @@ namespace Yura
                     name = file.Name.Split("\\").Last();
                 }
 
-                var specialisation = file.SpecialisationMask;
-
-                // TODO find out what these bits are
-                specialisation &= ~(uint)0x000000007ffffc00;
-
                 var view = new FileViewFile
                 {
                     Name = name,
                     Type = type.Item1,
                     Size = file.Size,
-                    Specialisation = ((SpecialisationFlags)specialisation).ToString(),
 
                     Image = type.Item2,
                     File = file
@@ -343,7 +337,6 @@ namespace Yura
         public string Name { get; set; }
         public string Type { get; set; }
         public uint Size { get; set; }
-        public string Specialisation { get; set; }
 
         public ArchivedFile File { get; set; }
     }

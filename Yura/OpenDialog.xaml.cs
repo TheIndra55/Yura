@@ -71,12 +71,12 @@ namespace Yura
                 return (FileListSelect.SelectedItem as FileListItem)?.Path;
             }
         }
-    }
 
-    public class FileListItem
-    {
-        public string Name { get; set; }
-        public string Path { get; set; }
+        public class FileListItem
+        {
+            public string Name { get; set; }
+            public string Path { get; set; }
+        }
     }
 
     public enum TextureFormat

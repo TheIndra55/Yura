@@ -52,7 +52,7 @@
             
             <ListView.View>
                 <GridView>
-                    <GridViewColumn Width="300">
+                    <GridViewColumn Width="600">
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
                                 <StackPanel Orientation="Horizontal">
@@ -73,11 +73,6 @@
                     <GridViewColumn Width="100" DisplayMemberBinding="{Binding Size}">
                         <GridViewColumn.Header>
                             <GridViewColumnHeader Tag="Size" Click="GridViewColumnHeader_Click">Size</GridViewColumnHeader>
-                        </GridViewColumn.Header>
-                    </GridViewColumn>
-                    <GridViewColumn Width="300" DisplayMemberBinding="{Binding Specialisation}">
-                        <GridViewColumn.Header>
-                            <GridViewColumnHeader Tag="Specialisation" Click="GridViewColumnHeader_Click">Specialisation</GridViewColumnHeader>
                         </GridViewColumn.Header>
                     </GridViewColumn>
                 </GridView>
