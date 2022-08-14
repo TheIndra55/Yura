@@ -36,7 +36,7 @@ namespace Yura
         private TextureFormat _textureFormat;
 
         // the current open bigfile
-        private Bigfile _bigfile;
+        private ArchiveFile _bigfile;
 
         public MainWindow()
         {
@@ -82,8 +82,8 @@ namespace Yura
         {
             var list = (fileList == null) ? null : new FileList(fileList);
 
-            _bigfile = new Bigfile(bigfile, list, _littleEndian);
-            _bigfile.Alignment = alignment;
+            _bigfile = new LegendArchive(bigfile, alignment, _littleEndian);
+            _bigfile.FileList = list;
 
             try
             {
@@ -108,7 +108,7 @@ namespace Yura
             DirectoryView.ItemsSource = new List<DirectoryViewFolder>() { root };
 
             // try to create a tree from all file paths
-            foreach (var file in _bigfile.Files)
+            foreach (var file in _bigfile.Records)
             {
                 if (file.Name == null)
                 {
@@ -189,7 +189,7 @@ namespace Yura
                 return;
             }
 
-            var file = _bigfile.OpenFile(item.File);
+            var file = _bigfile.Read(item.File);
             var size = item.File.Size;
 
             // if RAW magic open in texture viewer
@@ -246,7 +246,7 @@ namespace Yura
                     {
                         var path = Path.Combine(dialog.SelectedPath, item.Name);
 
-                        var file = _bigfile.OpenFile(item.File);
+                        var file = _bigfile.Read(item.File);
                         File.WriteAllBytes(path, file);
                     }
                 }
@@ -261,7 +261,7 @@ namespace Yura
 
                 if (dialog.ShowDialog() == true)
                 {
-                    var file = _bigfile.OpenFile(item.File);
+                    var file = _bigfile.Read(item.File);
                     File.WriteAllBytes(dialog.FileName, file);
                 }
             }
@@ -338,6 +338,6 @@ namespace Yura
         public string Type { get; set; }
         public uint Size { get; set; }
 
-        public ArchivedFile File { get; set; }
+        public ArchiveRecord File { get; set; }
     }
 }
