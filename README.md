@@ -2,6 +2,14 @@
 
 Yura is a bigfile browser for Tomb Raider games, it allows you to browse, preview and extract files without extracting the whole bigfile.
 
+| Game | Status |
+|------|--------|
+| Tomb Raider: Legend | Supported |
+| Tomb Raider: Anniversary | Supported |
+| Tomb Raider: Underworld | Supported |
+| Lara Croft and the Guardian of Light | Supported |
+| Deus Ex: Human Revolution | Supported |
+
 ## Screenshots
 
 ![image](https://user-images.githubusercontent.com/15322107/147368936-1174fb9c-89a3-475f-86b7-41fc0d1e17a3.png)
