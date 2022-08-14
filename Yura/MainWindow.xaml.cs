@@ -74,15 +74,27 @@ namespace Yura
                 _littleEndian = dialog.LittleEndian;
                 _textureFormat = dialog.TextureFormat;
 
-                OpenBigfile(bigfile, dialog.FileList, dialog.Alignment);
+                OpenBigfile(bigfile, dialog.Game, dialog.FileList, dialog.Alignment);
             }
         }
 
-        private void OpenBigfile(string bigfile, string fileList, int alignment)
+        private void OpenBigfile(string bigfile, Game game, string fileList, int alignment)
         {
             var list = (fileList == null) ? null : new FileList(fileList);
 
-            _bigfile = new LegendArchive(bigfile, alignment, _littleEndian);
+            switch(game)
+            {
+                case Game.Legend:
+                    _bigfile = new LegendArchive(bigfile, alignment, _littleEndian);
+                    break;
+                case Game.DeusEx:
+                    _bigfile = new DeusExArchive(bigfile, _littleEndian);
+                    break;
+                default:
+                    MessageBox.Show(this, "You did not select a game, make sure to select one using the 'Game' dropdown.", "No game selected", MessageBoxButton.OK, MessageBoxImage.Exclamation);
+                    return;
+            }
+
             _bigfile.FileList = list;
 
             try

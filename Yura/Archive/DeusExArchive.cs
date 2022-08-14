@@ -4,21 +4,20 @@ using StreamReader = Yura.IO.StreamReader;
 
 namespace Yura.Archive
 {
-    class LegendArchive : ArchiveFile
+    class DeusExArchive : ArchiveFile
     {
         private string _file;
-        private int _alignment;
+        private uint _alignment;
         private bool _littleEndian;
 
-        private List<LegendRecord> _files;
+        private List<DeusExRecord> _files;
 
-        public LegendArchive(string path, int alignment, bool littleEndian = true)
+        public DeusExArchive(string path, bool littleEndian = true)
         {
             _file = path;
             _littleEndian = littleEndian;
-            _alignment = alignment;
 
-            _files = new List<LegendRecord>();
+            _files = new List<DeusExRecord>();
         }
 
         public override void Open()
@@ -26,7 +25,12 @@ namespace Yura.Archive
             var stream = File.OpenRead(_file);
             var reader = new StreamReader(stream, _littleEndian);
 
-            // extract number of files
+            _alignment = reader.ReadUInt32();
+
+            // skip over config name
+            reader.BaseStream.Position += 64;
+
+            // same as legend
             var numRecords = reader.ReadUInt32();
             var hashes = new uint[numRecords];
 
@@ -39,7 +43,7 @@ namespace Yura.Archive
             // read all records
             for (var i = 0; i < numRecords; i++)
             {
-                var file = new LegendRecord()
+                var file = new DeusExRecord()
                 {
                     Hash = hashes[i]
                 };
@@ -69,27 +73,17 @@ namespace Yura.Archive
 
         public override byte[] Read(ArchiveRecord record)
         {
-            var file = record as LegendRecord;
+            var file = record as DeusExRecord;
 
             // calculate in which bigfile the data is
             var align = _alignment >> 11;
             var bigfile = file.Offset / align;
 
-            string filename;
-            if (_file.EndsWith(".000"))
-            {
-                var name = Path.GetFileNameWithoutExtension(_file);
-                filename = Path.GetDirectoryName(_file) + Path.DirectorySeparatorChar + name + "." + bigfile.ToString("000");
-            }
-            else
-            {
-                filename = _file;
+            // get the right bigfile filename
+            var name = Path.GetFileNameWithoutExtension(_file);
+            var filename = Path.GetDirectoryName(_file) + Path.DirectorySeparatorChar + name + "." + bigfile.ToString("000");
 
-                // one file, set alignment to that file size
-                _alignment = (int)new FileInfo(_file).Length;
-                align = _alignment >> 11;
-            }
-
+            // read data
             var stream = File.OpenRead(filename);
             var bytes = new byte[file.Size];
 
@@ -100,7 +94,7 @@ namespace Yura.Archive
         }
     }
 
-    class LegendRecord : ArchiveRecord
+    class DeusExRecord : ArchiveRecord
     {
         public uint Offset { get; set; }
     }

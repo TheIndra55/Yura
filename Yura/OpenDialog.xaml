@@ -22,10 +22,17 @@
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
 
-        <Label Grid.Column="0" Grid.Row="0">File list</Label>
-        <ComboBox Name="FileListSelect" Grid.Column="1" Grid.Row="0">
+        <Label Grid.Column="0" Grid.Row="0">Game</Label>
+        <ComboBox Name="GameSelect" Grid.Column="1" Grid.Row="0" SelectionChanged="GameSelect_SelectionChanged" Margin="0,0,0,20">
+            <ComboBoxItem>Tomb Raider Legend - Guardian of Light</ComboBoxItem>
+            <ComboBoxItem>Deus Ex Human Revolution</ComboBoxItem>
+        </ComboBox>
+        
+        <Label Grid.Column="0" Grid.Row="1">File list</Label>
+        <ComboBox Name="FileListSelect" Grid.Column="1" Grid.Row="1">
             <ComboBox.ItemTemplate>
                 <DataTemplate>
                     <TextBlock Text="{Binding Name}"/>
@@ -33,22 +40,22 @@
             </ComboBox.ItemTemplate>
         </ComboBox>
 
-        <Label Grid.Column="0" Grid.Row="1">Endianness</Label>
-        <ComboBox Name="EndiannessSelect" Grid.Column="1" Grid.Row="1">
+        <Label Grid.Column="0" Grid.Row="2">Endianness</Label>
+        <ComboBox Name="EndiannessSelect" Grid.Column="1" Grid.Row="2">
             <ComboBoxItem IsSelected="True">Little-endian</ComboBoxItem>
             <ComboBoxItem>Big-endian</ComboBoxItem>
         </ComboBox>
 
-        <Label Grid.Column="0" Grid.Row="2">Texture format</Label>
-        <ComboBox Name="TextureFormatSelect" Grid.Column="1" Grid.Row="2">
+        <Label Grid.Column="0" Grid.Row="3">Platform</Label>
+        <ComboBox Name="TextureFormatSelect" Grid.Column="1" Grid.Row="3">
             <ComboBoxItem IsSelected="True">PC</ComboBoxItem>
             <ComboBoxItem>Wii</ComboBoxItem>
             <ComboBoxItem>PS3</ComboBoxItem>
         </ComboBox>
 
-        <Label Grid.Column="0" Grid.Row="3">Alignment</Label>
-        <TextBox Name="AlignmentField" VerticalContentAlignment="Center" Grid.Column="1" Grid.Row="3">0x9600000</TextBox>
+        <Label Grid.Column="0" Grid.Row="4">Alignment</Label>
+        <TextBox Name="AlignmentField" VerticalContentAlignment="Center" Grid.Column="1" Grid.Row="4">0x9600000</TextBox>
 
-        <Button Grid.Row="4" Name="OkButton" Padding="5" Margin="10" Grid.ColumnSpan="2" HorizontalAlignment="Right" Click="OkButton_Click">Open</Button>
+        <Button Grid.Row="5" Name="OkButton" Padding="5" Margin="10" Grid.ColumnSpan="2" HorizontalAlignment="Right" Click="OkButton_Click">Open</Button>
     </Grid>
 </Window>

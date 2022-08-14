@@ -54,6 +54,14 @@ namespace Yura
             }
         }
 
+        public Game Game
+        {
+            get
+            {
+                return (Game)GameSelect.SelectedIndex;
+            }
+        }
+
         public TextureFormat TextureFormat
         {
             get
@@ -77,6 +85,14 @@ namespace Yura
             public string Name { get; set; }
             public string Path { get; set; }
         }
+
+        private void GameSelect_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            var game = (GameSelect.SelectedItem as ComboBoxItem).Content.ToString();
+
+            // toggle alignment property since deus ex defined alignment in bigfile header
+            AlignmentField.IsEnabled = !game.StartsWith("Deus Ex");
+        }
     }
 
     public enum TextureFormat
@@ -84,5 +100,11 @@ namespace Yura
         Pc,
         Wii,
         Ps3
+    }
+
+    public enum Game
+    {
+        Legend,
+        DeusEx
     }
 }
