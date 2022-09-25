@@ -90,6 +90,9 @@ namespace Yura
                 case Game.DeusEx:
                     _bigfile = new DeusExArchive(bigfile, _littleEndian);
                     break;
+                case Game.Defiance:
+                    _bigfile = new DefianceArchive(bigfile, _littleEndian);
+                    break;
                 default:
                     MessageBox.Show(this, "You did not select a game, make sure to select one using the 'Game' dropdown.", "No game selected", MessageBoxButton.OK, MessageBoxImage.Exclamation);
                     return;

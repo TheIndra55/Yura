@@ -50,6 +50,7 @@ namespace Yura.Archive
 
                 file.Size = reader.ReadUInt32();
                 file.Offset = reader.ReadUInt32();
+                file.Specialisation = reader.ReadUInt32();
 
                 // check if hash exist in file list
                 if (FileList != null && FileList.Files.TryGetValue(file.Hash, out string name))
@@ -59,7 +60,7 @@ namespace Yura.Archive
 
                 _files.Add(file);
 
-                reader.BaseStream.Position += 8;
+                reader.BaseStream.Position += 4;
             }
         }
 
@@ -97,5 +98,6 @@ namespace Yura.Archive
     class DeusExRecord : ArchiveRecord
     {
         public uint Offset { get; set; }
+        public uint Specialisation { get; set; }
     }
 }

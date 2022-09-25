@@ -104,7 +104,8 @@ namespace Yura
 
     public enum Game
     {
+        Defiance,
         Legend,
-        DeusEx
+        DeusEx,
     }
 }
