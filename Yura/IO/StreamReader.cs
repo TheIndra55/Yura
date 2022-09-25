@@ -49,6 +49,11 @@ namespace Yura.IO
             return data;
         }
 
+        public byte ReadByte()
+        {
+            return (byte)_stream.ReadByte();
+        }
+
         public short ReadInt16()
         {
             var data = Read(2);

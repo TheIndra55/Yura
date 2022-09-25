@@ -4,7 +4,7 @@ using System.Linq;
 
 namespace Yura.Archive
 {
-    abstract class ArchiveFile
+    public abstract class ArchiveFile
     {
         /// <summary>
         /// Gets the records in the archive

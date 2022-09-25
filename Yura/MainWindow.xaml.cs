@@ -310,6 +310,15 @@ namespace Yura
 
             FileView.Items.SortDescriptions.Add(new SortDescription((string)column.Tag, direction));
         }
+
+        private void SearchCommand_Executed(object sender, ExecutedRoutedEventArgs e)
+        {
+            var searchWindow = new SearchWindow();
+            searchWindow.Archive = _bigfile;
+            searchWindow.LittleEndian = _littleEndian;
+
+            searchWindow.Show();
+        }
     }
 
     public class DirectoryViewFolder

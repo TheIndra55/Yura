@@ -4,7 +4,7 @@ using System.IO;
 
 namespace Yura.Archive
 {
-    class FileList
+    public class FileList
     {
         public Dictionary<uint, string> Files { get; private set; }
 
