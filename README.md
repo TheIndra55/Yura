@@ -1,6 +1,6 @@
 # Yura
 
-Yura is a bigfile browser for Tomb Raider games, it allows you to browse, preview and extract files without extracting the whole bigfile.
+Yura is a bigfile browser for cdcEngine games, it allows you to browse, preview and extract files without extracting the whole bigfile.
 
 | Game | Status |
 |------|--------|
@@ -9,6 +9,14 @@ Yura is a bigfile browser for Tomb Raider games, it allows you to browse, previe
 | Tomb Raider: Underworld | Supported |
 | Lara Croft and the Guardian of Light | Supported |
 | Deus Ex: Human Revolution | Supported |
+| Legacy of Kain: Defiance | Supported |
+
+## Features
+
+- Browse and view files
+- Export files
+- Image and locale file viewer
+- Deep search
 
 ## Screenshots
 
