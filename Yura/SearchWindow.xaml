@@ -35,7 +35,7 @@
             <ListView.View>
                 <GridView>
                     <GridViewColumn Width="350" Header="File" DisplayMemberBinding="{Binding File}" />
-                    <GridViewColumn Width="auto" Header="Section" DisplayMemberBinding="{Binding Section}" />
+                    <GridViewColumn Width="100" Header="Section" DisplayMemberBinding="{Binding Section}" />
                 </GridView>
             </ListView.View>
         </ListView>

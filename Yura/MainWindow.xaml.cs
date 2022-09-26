@@ -107,7 +107,7 @@ namespace Yura
             {
                 _bigfile.Open();
             }
-            catch(Exception e)
+            catch (Exception e)
             {
                 MessageBox.Show(this, e.Message, "Failed to open bigfile", MessageBoxButton.OK, MessageBoxImage.Error);
                 return;
@@ -361,6 +361,11 @@ namespace Yura
             searchWindow.LittleEndian = _littleEndian;
 
             searchWindow.Show();
+        }
+
+        private void CloseCommand_Executed(object sender, ExecutedRoutedEventArgs e)
+        {
+            Close();
         }
     }
 

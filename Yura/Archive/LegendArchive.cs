@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using StreamReader = Yura.IO.StreamReader;
 
@@ -28,6 +29,12 @@ namespace Yura.Archive
 
             // extract number of files
             var numRecords = reader.ReadUInt32();
+
+            if (numRecords > 1_000_000)
+            {
+                throw new ArgumentException("Bigfile has more than a million files, did you select the wrong endianness?");
+            }
+
             var hashes = new uint[numRecords];
 
             // read all filename hashes

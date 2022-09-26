@@ -11,6 +11,7 @@
     <Window.CommandBindings>
         <CommandBinding Command="Open" Executed="OpenCommand_Executed" />
         <CommandBinding Command="Search" Executed="SearchCommand_Executed" />
+        <CommandBinding Command="Close" Executed="CloseCommand_Executed" />
     </Window.CommandBindings>
     
     <Grid>
@@ -28,6 +29,8 @@
         <Menu Grid.Row="0" Grid.ColumnSpan="3">
             <MenuItem Header="_File">
                 <MenuItem Command="Open"></MenuItem>
+                <Separator />
+                <MenuItem Command="Close" InputGestureText="Alt+F4"></MenuItem>
             </MenuItem>
             <MenuItem Header="_Tools">
                 <MenuItem Header="Deep search" Command="Search"></MenuItem>
@@ -83,6 +86,5 @@
                 </GridView>
             </ListView.View>
         </ListView>
-
     </Grid>
 </Window>
