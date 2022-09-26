@@ -6,6 +6,7 @@ using System.ComponentModel;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
+using System.Text;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
@@ -34,6 +35,7 @@ namespace Yura
 
         private bool _littleEndian;
         private TextureFormat _textureFormat;
+        private Game _currentGame;
 
         // the current open bigfile
         private ArchiveFile _bigfile;
@@ -98,6 +100,7 @@ namespace Yura
                     return;
             }
 
+            _currentGame = game;
             _bigfile.FileList = list;
 
             try
@@ -178,11 +181,51 @@ namespace Yura
                     File = file
                 };
 
+                if (_currentGame == Game.Legend || _currentGame == Game.DeusEx)
+                {
+                    view.SpecMask = GetSpecMask(file);
+                }
+
                 filesview.Add(view);
             }
 
             FileView.ItemsSource = filesview;
             FileView.Items.SortDescriptions.Clear();
+        }
+
+        private string GetSpecMask(ArchiveRecord record)
+        {
+            var specMask = _bigfile.GetSpecialisationMask(record);
+
+            switch ((SpecMaskView) Properties.Settings.Default.SpecMaskView)
+            {
+                default:
+                case SpecMaskView.Flags:
+                    // unset remaining bits to hide noise
+                    specMask &= ~(uint)0x7fffffe0;
+
+                    return ((SpecialisationFlags)specMask).ToString();
+
+                case SpecMaskView.Bits:
+                    specMask &= ~(uint)0x7fffffe0;
+
+                    return GetBinaryRepresentation(specMask);
+
+                case SpecMaskView.Hex:
+                    return specMask.ToString("X");
+            }
+        }
+
+        private string GetBinaryRepresentation(uint number)
+        {
+            var builder = new StringBuilder();
+
+            for (var i = 31; i >= 0; i--)
+            {
+                builder.Append((number & (1 << i)) != 0 ? "1" : "0");
+            }
+
+            return builder.ToString();
         }
 
         private Tuple<string, BitmapImage> GetFileType(string ext)
@@ -361,7 +404,15 @@ namespace Yura
         public string Name { get; set; }
         public string Type { get; set; }
         public uint Size { get; set; }
+        public string SpecMask { get; set; }
 
         public ArchiveRecord File { get; set; }
+    }
+
+    public enum SpecMaskView
+    {
+        Flags,
+        Bits,
+        Hex
     }
 }

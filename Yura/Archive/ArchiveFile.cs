@@ -24,6 +24,13 @@ namespace Yura.Archive
         public abstract byte[] Read(ArchiveRecord record);
 
         /// <summary>
+        /// Gets the specialisation mask of a record
+        /// </summary>
+        /// <param name="record">The record to get the specialisation of</param>
+        /// <returns>The specialisation mask</returns>
+        public abstract uint GetSpecialisationMask(ArchiveRecord record);
+
+        /// <summary>
         /// Gets or sets the file list
         /// </summary>
         public FileList FileList { get; set; }

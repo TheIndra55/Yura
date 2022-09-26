@@ -79,6 +79,12 @@ namespace Yura.Archive
 
             return bytes;
         }
+
+        public override uint GetSpecialisationMask(ArchiveRecord record)
+        {
+            // defiance does not use specialisation
+            return 0;
+        }
     }
 
     class DefianceRecord : ArchiveRecord

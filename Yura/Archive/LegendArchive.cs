@@ -99,6 +99,13 @@ namespace Yura.Archive
 
             return bytes;
         }
+
+        public override uint GetSpecialisationMask(ArchiveRecord record)
+        {
+            var file = record as LegendRecord;
+
+            return file.Specialisation;
+        }
     }
 
     class LegendRecord : ArchiveRecord

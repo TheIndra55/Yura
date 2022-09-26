@@ -93,6 +93,13 @@ namespace Yura.Archive
 
             return bytes;
         }
+
+        public override uint GetSpecialisationMask(ArchiveRecord record)
+        {
+            var file = record as DeusExRecord;
+
+            return file.Specialisation;
+        }
     }
 
     class DeusExRecord : ArchiveRecord
