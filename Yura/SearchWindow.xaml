@@ -6,6 +6,7 @@
         xmlns:local="clr-namespace:Yura"
         mc:Ignorable="d"
         Title="Deep search"
+        WindowStartupLocation="CenterOwner"
         Height="600" Width="500"
         Icon="Yura.ico">
     <Grid Margin="10">

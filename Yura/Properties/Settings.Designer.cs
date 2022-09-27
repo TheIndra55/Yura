@@ -34,5 +34,17 @@ namespace Yura.Properties {
                 this["SpecMaskView"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0")]
+        public int ClickAction {
+            get {
+                return ((int)(this["ClickAction"]));
+            }
+            set {
+                this["ClickAction"] = value;
+            }
+        }
     }
 }

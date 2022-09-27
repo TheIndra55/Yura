@@ -35,6 +35,7 @@
             <MenuItem Header="_Tools">
                 <MenuItem Header="Deep search" Command="Search"></MenuItem>
             </MenuItem>
+            <MenuItem Header="Settings" Click="SettingsCommand_Executed"></MenuItem>
         </Menu>
 
         <TreeView SelectedItemChanged="DirectoryView_SelectedItemChanged" x:Name="DirectoryView" Grid.Row="1" Grid.Column="0">

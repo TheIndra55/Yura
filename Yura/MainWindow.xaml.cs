@@ -69,7 +69,7 @@ namespace Yura
         private void OpenBigfileDialog(string bigfile)
         {
             // dialog to set file list, endianness and alignment
-            var dialog = new OpenDialog();
+            var dialog = new OpenDialog() { Owner = this };
 
             if (dialog.ShowDialog() == true)
             {
@@ -241,9 +241,17 @@ namespace Yura
         private void FileView_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
             var item = FileView.SelectedItem as FileViewFile;
+            var clickAction = (DoubleClickAction)Properties.Settings.Default.ClickAction;
 
             if (item == null)
             {
+                return;
+            }
+
+            if (clickAction == DoubleClickAction.Export)
+            {
+                ExportFile(item);
+
                 return;
             }
 
@@ -272,6 +280,14 @@ namespace Yura
                 viewer.Data = file;
 
                 viewer.Show();
+
+                return;
+            }
+
+            // no yura previews left, check if user setting wants to open file or export
+            if (clickAction == DoubleClickAction.PreviewFile)
+            {
+                ExportFile(item);
 
                 return;
             }
@@ -314,14 +330,19 @@ namespace Yura
                 // export single file
                 var item = FileView.SelectedItem as FileViewFile;
 
-                var dialog = new SaveFileDialog();
-                dialog.FileName = item.Name;
+                ExportFile(item);
+            }
+        }
 
-                if (dialog.ShowDialog() == true)
-                {
-                    var file = _bigfile.Read(item.File);
-                    File.WriteAllBytes(dialog.FileName, file);
-                }
+        private void ExportFile(FileViewFile item)
+        {
+            var dialog = new SaveFileDialog();
+            dialog.FileName = item.Name;
+
+            if (dialog.ShowDialog() == true)
+            {
+                var file = _bigfile.Read(item.File);
+                File.WriteAllBytes(dialog.FileName, file);
             }
         }
 
@@ -356,7 +377,7 @@ namespace Yura
 
         private void SearchCommand_Executed(object sender, ExecutedRoutedEventArgs e)
         {
-            var searchWindow = new SearchWindow();
+            var searchWindow = new SearchWindow() { Owner = this };
             searchWindow.Archive = _bigfile;
             searchWindow.LittleEndian = _littleEndian;
 
@@ -366,6 +387,13 @@ namespace Yura
         private void CloseCommand_Executed(object sender, ExecutedRoutedEventArgs e)
         {
             Close();
+        }
+
+        private void SettingsCommand_Executed(object sender, RoutedEventArgs e)
+        {
+            var settings = new SettingsWindow() { Owner = this };
+
+            settings.ShowDialog();
         }
     }
 
@@ -419,5 +447,12 @@ namespace Yura
         Flags,
         Bits,
         Hex
+    }
+
+    public enum DoubleClickAction
+    {
+        OpenFile,
+        PreviewFile,
+        Export
     }
 }
