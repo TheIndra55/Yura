@@ -24,6 +24,7 @@ namespace Yura
         // icons, todo better way for this?
         private BitmapImage _folderIcon;
         private BitmapImage _archiveIcon;
+        private BitmapImage _stackIcon;
         private BitmapImage _binaryIcon;
         private BitmapImage _classIcon;
         private BitmapImage _imageIcon;
@@ -47,6 +48,7 @@ namespace Yura
             // icons from VS2019 icon library
             _folderIcon = new BitmapImage(new Uri("/Images/FolderClosed.png", UriKind.Relative));
             _archiveIcon = new BitmapImage(new Uri("/Images/ZipFile.png", UriKind.Relative));
+            _stackIcon = new BitmapImage(new Uri("/Images/ImageStack.png", UriKind.Relative));
             _binaryIcon = new BitmapImage(new Uri("/Images/BinaryFile.png", UriKind.Relative));
             _classIcon = new BitmapImage(new Uri("/Images/ClassFile.png", UriKind.Relative));
             _imageIcon = new BitmapImage(new Uri("/Images/Image.png", UriKind.Relative));
@@ -56,13 +58,15 @@ namespace Yura
             _fileTypes = new Dictionary<string, Tuple<string, BitmapImage>>
             {
                 { ".drm", new Tuple<string, BitmapImage>("Data Ram", _classIcon) },
+                { ".vrm", new Tuple<string, BitmapImage>("Video Ram", _stackIcon) },
                 { ".mul", new Tuple<string, BitmapImage>("MultiplexStream", _soundIcon) },
                 { ".raw", new Tuple<string, BitmapImage>("RAW Image", _imageIcon) },
                 { ".mus", new Tuple<string, BitmapImage>("Music", _soundIcon) },
                 { ".sam", new Tuple<string, BitmapImage>("Music Sample", _soundIcon) },
                 { ".ids", new Tuple<string, BitmapImage>("IDMap", _textIcon) },
                 { ".txt", new Tuple<string, BitmapImage>("Text File", _textIcon) },
-                { ".sch", new Tuple<string, BitmapImage>("SchemaFile", _textIcon) }
+                { ".sch", new Tuple<string, BitmapImage>("SchemaFile", _textIcon) },
+                { ".ini", new Tuple<string, BitmapImage>("Text File", _textIcon) }
             };
         }
 

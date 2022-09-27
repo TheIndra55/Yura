@@ -12,6 +12,7 @@
     <None Remove="Images\ClassFile.png" />
     <None Remove="Images\FolderClosed.png" />
     <None Remove="Images\Image.png" />
+    <None Remove="Images\ImageStack.png" />
     <None Remove="Images\SoundFile.png" />
     <None Remove="Images\TextFile.png" />
     <None Remove="Images\ZipFile.png" />
@@ -25,6 +26,7 @@
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Resource>
     <Resource Include="Images\Image.png" />
+    <Resource Include="Images\ImageStack.png" />
     <Resource Include="Images\SoundFile.png" />
     <Resource Include="Images\TextFile.png" />
     <Resource Include="Images\ZipFile.png">
