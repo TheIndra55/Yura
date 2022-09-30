@@ -56,6 +56,26 @@ namespace Yura
             Task.Run(() => SearchTask(files, id, sectionType));
         }
 
+        private void SearchResults_MouseDoubleClick(object sender, System.Windows.Input.MouseButtonEventArgs e)
+        {
+            var item = SearchResults.SelectedItem as SearchResult;
+
+            if (item == null)
+            {
+                return;
+            }
+
+            var file = item.File;
+
+            var filename = Path.GetFileName(file);
+            var path = Path.GetDirectoryName(file);
+
+            var window = Owner as MainWindow;
+
+            // switch to the folder and select the file
+            window.SwitchDirectory(path, filename);
+        }
+
         private void SearchTask(IEnumerable<ArchiveRecord> files, int id, SectionType type)
         {
             foreach (var file in files)

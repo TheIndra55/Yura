@@ -158,8 +158,14 @@ namespace Yura
             var folder = e.NewValue as DirectoryViewFolder;
 
             // if path is null then get root
-            var files = _bigfile.GetFolder(folder.Path == null ? "\\" : folder.Path + "\\");
+            SwitchDirectory(folder.Path == null ? "\\" : folder.Path + "\\");
+        }
+
+        public void SwitchDirectory(string path, string selectedFile = null)
+        {
+            var files = _bigfile.GetFolder(path);
             var filesview = new List<FileViewFile>();
+            FileViewFile selected = null;
 
             foreach(var file in files)
             {
@@ -190,11 +196,22 @@ namespace Yura
                     view.SpecMask = GetSpecMask(file);
                 }
 
+                if (name == selectedFile)
+                {
+                    selected = view;
+                }
+
                 filesview.Add(view);
             }
 
             FileView.ItemsSource = filesview;
             FileView.Items.SortDescriptions.Clear();
+
+            if (selected != null)
+            {
+                FileView.SelectedItem = selected;
+                FileView.ScrollIntoView(selected);
+            }
         }
 
         private string GetSpecMask(ArchiveRecord record)
