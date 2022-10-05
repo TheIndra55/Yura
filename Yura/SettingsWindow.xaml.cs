@@ -1,16 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Microsoft.Win32;
+using System;
+using System.Diagnostics;
+using System.Runtime.InteropServices;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 
 namespace Yura
 {
@@ -19,6 +12,8 @@ namespace Yura
     /// </summary>
     public partial class SettingsWindow : Window
     {
+        private const string ProgId = "Yura";
+
         public SettingsWindow()
         {
             InitializeComponent();
@@ -41,5 +36,39 @@ namespace Yura
         {
             Properties.Settings.Default.ClickAction = ClickAction.SelectedIndex;
         }
+
+        private void FileAssociations_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                using var reg = Registry.ClassesRoot;
+
+                // associate .000 and .dat with Yura
+                reg.CreateSubKey(".000").SetValue(string.Empty, ProgId);
+                reg.CreateSubKey(".dat").SetValue(string.Empty, ProgId);
+
+                // define yura, see https://learn.microsoft.com/en-us/windows/win32/shell/fa-progids
+                var program = reg.CreateSubKey(ProgId);
+
+                program.SetValue(string.Empty, ProgId);
+                program.SetValue("FriendlyTypeName", ProgId);
+
+                var path = Process.GetCurrentProcess().MainModule.FileName;
+                program.CreateSubKey(@"shell\open\command").SetValue(string.Empty, $"\"{path}\" \"%1\"");
+
+                // notify the shell about file associations been updated
+                SHChangeNotify(0x08000000, 0, IntPtr.Zero, IntPtr.Zero);
+
+                MessageBox.Show("Yura will now open .000 and .dat files.", "File associations set", MessageBoxButton.OK, MessageBoxImage.Information);
+            }
+            catch (UnauthorizedAccessException)
+            {
+                // TODO relaunch as administrator
+                MessageBox.Show("Yura must be run as administrator to set file associations.", "Missing access", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+        }
+
+        [DllImport("shell32.dll")]
+        private static extern void SHChangeNotify(int wEventId, uint uFlags, IntPtr dwItem1, IntPtr dwItem2);
     }
 }
