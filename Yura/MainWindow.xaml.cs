@@ -70,7 +70,7 @@ namespace Yura
             };
         }
 
-        private void OpenBigfileDialog(string bigfile)
+        public void OpenBigfileDialog(string bigfile)
         {
             // dialog to set file list, endianness and alignment
             var dialog = new OpenDialog() { Owner = this };
