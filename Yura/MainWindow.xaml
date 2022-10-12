@@ -18,12 +18,13 @@
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*" />
             <ColumnDefinition Width="5" />
-            <ColumnDefinition Width="3*" />
+            <ColumnDefinition Width="5*" />
         </Grid.ColumnDefinitions>
 
         <Grid.RowDefinitions>
-            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto" />
             <RowDefinition/>
+            <RowDefinition Height="auto" />
         </Grid.RowDefinitions>
 
         <Menu Grid.Row="0" Grid.ColumnSpan="3">
@@ -38,7 +39,7 @@
             <MenuItem Header="Settings" Click="SettingsCommand_Executed"></MenuItem>
         </Menu>
 
-        <TreeView SelectedItemChanged="DirectoryView_SelectedItemChanged" x:Name="DirectoryView" Grid.Row="1" Grid.Column="0">
+        <TreeView SelectedItemChanged="DirectoryView_SelectedItemChanged" Name="DirectoryView" Grid.Row="1" Grid.Column="0">
             <TreeView.Resources>
                 <HierarchicalDataTemplate DataType="{x:Type self:DirectoryViewFolder}" ItemsSource="{Binding Subfolders}">
                     <StackPanel Orientation="Horizontal">
@@ -57,7 +58,7 @@
                     <MenuItem Name="ExportBtn" Click="ExportBtn_Click" Header="Export"/>
                 </ContextMenu>
             </ListView.ContextMenu>
-            
+
             <ListView.View>
                 <GridView>
                     <GridViewColumn Width="600">
