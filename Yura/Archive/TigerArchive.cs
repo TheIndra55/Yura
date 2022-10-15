@@ -35,16 +35,20 @@ namespace Yura.Archive
 
             var version = reader.ReadUInt32();
 
-            // check if version 3 or 4
-            if (version < 3 || version > 4)
+            // check if version 3, 4 or 5
+            if (version < 3 || version > 5)
             {
                 throw new Exception($"Tiger archive version {version} is not supported");
             }
 
+            // load file list
+            FileList.Load(version < 5 ? HashingAlgorithm.Crc32 : HashingAlgorithm.Fnv1a);
+
             var numArchives = reader.ReadUInt32();
             var numRecords = reader.ReadUInt32();
 
-            reader.BaseStream.Position += 4;
+            // skip 4 bytes, or 8 in version 5 or later
+            reader.BaseStream.Position += version < 5 ? 4 : 8;
 
             // skip over config name
             reader.BaseStream.Position += 32;
@@ -54,9 +58,18 @@ namespace Yura.Archive
             {
                 var file = new TigerRecord();
 
-                file.Hash = reader.ReadUInt32();
-                file.Specialisation = reader.ReadUInt32();
-                file.Size = reader.ReadUInt32();
+                if (version < 5)
+                {
+                    file.Hash = reader.ReadUInt32();
+                    file.Specialisation = reader.ReadUInt32();
+                    file.Size = reader.ReadUInt32();
+                }
+                else
+                {
+                    file.Hash = reader.ReadUInt64();
+                    file.Specialisation = reader.ReadUInt64();
+                    file.Size = reader.ReadUInt32();
+                }
 
                 // 2013
                 if (version == 3)
@@ -74,6 +87,15 @@ namespace Yura.Archive
                     var packedOffset = reader.ReadUInt64();
 
                     // not sure about this, need to check LOWORD/HIDWORD
+                    file.Index = packedOffset & 0xffff;
+                    file.Offset = (packedOffset >> 32) & 0xFFFFFFFF;
+                }
+                // shadow
+                else if (version == 5)
+                {
+                    reader.BaseStream.Position += 4;
+
+                    var packedOffset = reader.ReadUInt64();
                     file.Index = packedOffset & 0xffff;
                     file.Offset = (packedOffset >> 32) & 0xFFFFFFFF;
                 }
@@ -120,7 +142,8 @@ namespace Yura.Archive
         {
             var file = record as TigerRecord;
 
-            return file.Specialisation;
+            // TODO this will lose 32 bits in Shadow
+            return (uint)file.Specialisation;
         }
     }
 
@@ -129,6 +152,6 @@ namespace Yura.Archive
         public ulong Index { get; set; }
         public ulong Offset { get; set; }
 
-        public uint Specialisation { get; set; }
+        public ulong Specialisation { get; set; }
     }
 }

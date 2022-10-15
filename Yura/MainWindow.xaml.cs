@@ -117,7 +117,7 @@ namespace Yura
 
         private void OpenBigfile(string bigfile, Game game, string fileList, int alignment)
         {
-            var list = (fileList == null) ? null : new FileList(fileList);
+            var list = (fileList == null) ? null : new FileList(fileList, game != Game.Tiger);
 
             switch(game)
             {

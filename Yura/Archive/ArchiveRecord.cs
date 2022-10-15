@@ -5,7 +5,7 @@
         /// <summary>
         /// Gets the filename hash
         /// </summary>
-        public uint Hash { get; set; }
+        public ulong Hash { get; set; }
 
         /// <summary>
         /// Gets the name of the file

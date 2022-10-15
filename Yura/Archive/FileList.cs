@@ -6,20 +6,47 @@ namespace Yura.Archive
 {
     public class FileList
     {
-        public Dictionary<uint, string> Files { get; private set; }
+        public Dictionary<ulong, string> Files { get; private set; }
+        public string Path { get; private set; }
 
-        public FileList([NotNull] string path)
+        /// <summary>
+        /// Constructs a new file list with the path as input file
+        /// </summary>
+        /// <param name="path">The input file</param>
+        /// <param name="load">Whether to already load the file, can be false if hashing algorithm is not yet known</param>
+        public FileList([NotNull] string path, bool load)
         {
             if (!File.Exists(path))
             {
                 throw new FileNotFoundException("File list not found", path);
-            }   
+            }
 
-            Files = new Dictionary<uint, string>();
+            Path = path;
+            Files = new Dictionary<ulong, string>();
 
-            foreach (var line in File.ReadAllLines(path))
+            if (load)
             {
-                var hash = CalculateHash(line);
+                Load(HashingAlgorithm.Crc32);
+            }
+        }
+
+        /// <summary>
+        /// Loads the file list from disk
+        /// </summary>
+        public void Load(HashingAlgorithm algorithm)
+        {
+            foreach (var line in File.ReadAllLines(Path))
+            {
+                ulong hash = 0;
+
+                if (algorithm == HashingAlgorithm.Crc32)
+                {
+                    hash = CalculateHash32(line);
+                }
+                else if (algorithm == HashingAlgorithm.Fnv1a)
+                {
+                    hash = CalculateHash64(line);
+                }
 
                 // either a hash collision or double file entry
                 if (!Files.ContainsKey(hash))
@@ -29,7 +56,8 @@ namespace Yura.Archive
             }
         }
 
-        public uint CalculateHash(string name)
+        // CRC32
+        public uint CalculateHash32(string name)
         {
             // all paths are lowercase
             name = name.ToLower();
@@ -51,5 +79,27 @@ namespace Yura.Archive
 
             return ~hash;
         }
+
+        // FNV1A
+        public ulong CalculateHash64(string name)
+        {
+            name = name.ToLower();
+
+            ulong hash = 0xcbf29ce484222325;
+
+            foreach (var rune in name)
+            {
+                hash = hash ^ rune;
+                hash *= 0x100000001b3;
+            }
+
+            return hash;
+        }
+    }
+
+    public enum HashingAlgorithm
+    {
+        Crc32,
+        Fnv1a
     }
 }
