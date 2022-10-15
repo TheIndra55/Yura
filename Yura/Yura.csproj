@@ -6,6 +6,7 @@
     <UseWPF>true</UseWPF>
     <UseWindowsForms>true</UseWindowsForms>
     <ApplicationIcon>Yura.ico</ApplicationIcon>
+    <Version>1.2</Version>
   </PropertyGroup>
 
   <ItemGroup>
@@ -27,16 +28,12 @@
   <ItemGroup>
     <Resource Include="Images\BinaryFile.png" />
     <Resource Include="Images\ClassFile.png" />
-    <Resource Include="Images\FolderClosed.png">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
-    </Resource>
+    <Resource Include="Images\FolderClosed.png" />
     <Resource Include="Images\Image.png" />
     <Resource Include="Images\ImageStack.png" />
     <Resource Include="Images\SoundFile.png" />
     <Resource Include="Images\TextFile.png" />
-    <Resource Include="Images\ZipFile.png">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
-    </Resource>
+    <Resource Include="Images\ZipFile.png" />
     <Resource Include="Yura.ico" />
   </ItemGroup>
 
