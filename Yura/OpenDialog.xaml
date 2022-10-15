@@ -31,6 +31,7 @@
             <ComboBoxItem>Legacy of Kain Defiance</ComboBoxItem>
             <ComboBoxItem>Tomb Raider Legend - Guardian of Light</ComboBoxItem>
             <ComboBoxItem>Deus Ex Human Revolution</ComboBoxItem>
+            <ComboBoxItem>Tiger Archive</ComboBoxItem>
         </ComboBox>
         
         <Label Grid.Column="0" Grid.Row="1">File list</Label>

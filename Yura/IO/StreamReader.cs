@@ -82,6 +82,13 @@ namespace Yura.IO
             return BitConverter.ToUInt32(data);
         }
 
+        public ulong ReadUInt64()
+        {
+            var data = Read(8);
+
+            return BitConverter.ToUInt64(data);
+        }
+
         /// <summary>
         /// Reads a null-terminated string from the stream
         /// </summary>

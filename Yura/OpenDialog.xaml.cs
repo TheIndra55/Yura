@@ -107,5 +107,6 @@ namespace Yura
         Defiance,
         Legend,
         DeusEx,
+        Tiger,
     }
 }

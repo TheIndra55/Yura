@@ -99,6 +99,9 @@ namespace Yura
                 case Game.Defiance:
                     _bigfile = new DefianceArchive(bigfile, _littleEndian);
                     break;
+                case Game.Tiger:
+                    _bigfile = new TigerArchive(bigfile, _littleEndian);
+                    break;
                 default:
                     MessageBox.Show(this, "You did not select a game, make sure to select one using the 'Game' dropdown.", "No game selected", MessageBoxButton.OK, MessageBoxImage.Exclamation);
                     return;
@@ -191,7 +194,7 @@ namespace Yura
                     File = file
                 };
 
-                if (_currentGame == Game.Legend || _currentGame == Game.DeusEx)
+                if (_currentGame >= Game.Legend)
                 {
                     view.SpecMask = GetSpecMask(file);
                 }
@@ -370,7 +373,7 @@ namespace Yura
         private void OpenCommand_Executed(object sender, ExecutedRoutedEventArgs e)
         {
             var dialog = new OpenFileDialog();
-            dialog.Filter = "Bigfile|*.000;*.dat;*.000.wii-w";
+            dialog.Filter = "Bigfile|*.000;*.dat;*.000.wii-w;*.000.tiger";
             dialog.Title = "Select bigfile";
 
             if (dialog.ShowDialog() == true)
