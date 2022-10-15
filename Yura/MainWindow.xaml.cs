@@ -75,6 +75,11 @@ namespace Yura
             // dialog to set file list, endianness and alignment
             var dialog = new OpenDialog() { Owner = this };
 
+            if (Path.GetExtension(bigfile) == ".tiger")
+            {
+                dialog.Game = Game.Tiger;
+            }
+
             if (dialog.ShowDialog() == true)
             {
                 _littleEndian = dialog.LittleEndian;

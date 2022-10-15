@@ -60,6 +60,12 @@ namespace Yura
             {
                 return (Game)GameSelect.SelectedIndex;
             }
+            set
+            {
+                GameSelect.SelectedIndex = (int)value;
+
+                AlignmentField.IsEnabled = value < Game.DeusEx;
+            }
         }
 
         public TextureFormat TextureFormat
@@ -88,10 +94,7 @@ namespace Yura
 
         private void GameSelect_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            var game = (GameSelect.SelectedItem as ComboBoxItem).Content.ToString();
-
-            // toggle alignment property since deus ex defined alignment in bigfile header
-            AlignmentField.IsEnabled = !game.StartsWith("Deus Ex");
+            AlignmentField.IsEnabled = GameSelect.SelectedIndex < (int)Game.DeusEx;
         }
     }
 
