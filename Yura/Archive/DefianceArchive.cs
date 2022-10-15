@@ -12,6 +12,7 @@ namespace Yura.Archive
         private List<DefianceRecord> _files;
 
         public DefianceArchive(string path, bool littleEndian = true)
+            : base(path)
         {
             _file = path;
             _littleEndian = littleEndian;

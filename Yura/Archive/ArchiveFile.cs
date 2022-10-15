@@ -6,6 +6,11 @@ namespace Yura.Archive
 {
     public abstract class ArchiveFile
     {
+        public ArchiveFile(string path)
+        {
+            Filename = path;
+        }
+
         /// <summary>
         /// Gets the records in the archive
         /// </summary>
@@ -34,6 +39,11 @@ namespace Yura.Archive
         /// Gets or sets the file list
         /// </summary>
         public FileList FileList { get; set; }
+
+        /// <summary>
+        /// Gets the underlying file
+        /// </summary>
+        public string Filename { get; private set; }
 
         /// <summary>
         /// Gets all records in a folder

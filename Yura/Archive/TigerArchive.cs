@@ -13,6 +13,7 @@ namespace Yura.Archive
         private List<TigerRecord> _files;
 
         public TigerArchive(string path, bool littleEndian = true)
+            : base(path)
         {
             _file = path;
             _littleEndian = littleEndian;

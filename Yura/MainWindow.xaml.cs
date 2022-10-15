@@ -70,6 +70,32 @@ namespace Yura
             };
         }
 
+        /// <summary>
+        /// Gets the current open bigfile
+        /// </summary>
+        public ArchiveFile Bigfile
+        {
+            get
+            {
+                return _bigfile;
+            }
+        }
+
+        /// <summary>
+        /// Gets the current game
+        /// </summary>
+        public Game Game
+        {
+            get
+            {
+                return _currentGame;
+            }
+        }
+
+        /// <summary>
+        /// Opens the open bigfile dialog with a bigfile
+        /// </summary>
+        /// <param name="bigfile">The bigfile to open</param>
         public void OpenBigfileDialog(string bigfile)
         {
             // dialog to set file list, endianness and alignment

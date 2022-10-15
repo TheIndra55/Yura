@@ -14,6 +14,7 @@ namespace Yura.Archive
         private List<LegendRecord> _files;
 
         public LegendArchive(string path, int alignment, bool littleEndian = true)
+            : base(path)
         {
             _file = path;
             _littleEndian = littleEndian;

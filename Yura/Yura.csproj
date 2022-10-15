@@ -21,6 +21,10 @@
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="Sentry" Version="3.22.0" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Resource Include="Images\BinaryFile.png" />
     <Resource Include="Images\ClassFile.png" />
     <Resource Include="Images\FolderClosed.png">

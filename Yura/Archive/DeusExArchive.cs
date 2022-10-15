@@ -14,6 +14,7 @@ namespace Yura.Archive
         private List<DeusExRecord> _files;
 
         public DeusExArchive(string path, bool littleEndian = true)
+            : base(path)
         {
             _file = path;
             _littleEndian = littleEndian;
