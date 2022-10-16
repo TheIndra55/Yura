@@ -141,6 +141,8 @@ namespace Yura
             _currentGame = game;
             _bigfile.FileList = list;
 
+            PathBox.Text = Path.GetFileName(bigfile);
+
             try
             {
                 _bigfile.Open();
@@ -198,10 +200,26 @@ namespace Yura
         public void SwitchDirectory(string path, string selectedFile = null)
         {
             var files = _bigfile.GetFolder(path);
+            var bigfile = Path.GetFileName(_bigfile.Filename);
+
+            if (path[0] == '\\')
+            {
+                PathBox.Text = bigfile;
+            }
+            else
+            {
+                PathBox.Text = bigfile + "\\" + path;
+            }
+
+            ShowFiles(files, selectedFile);
+        }
+
+        private void ShowFiles(List<ArchiveRecord> files, string selectedFile = null)
+        {
             var filesview = new List<FileViewFile>();
             FileViewFile selected = null;
 
-            foreach(var file in files)
+            foreach (var file in files)
             {
                 var type = GetFileType(Path.GetExtension(file.Name ?? ""));
 
@@ -449,6 +467,51 @@ namespace Yura
             var settings = new SettingsWindow() { Owner = this };
 
             settings.ShowDialog();
+        }
+
+        private void SearchBox_GotFocus(object sender, RoutedEventArgs e)
+        {
+            SearchBox.Text = "";
+        }
+
+        private void SearchBox_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Return)
+            {
+                var query = SearchBox.Text.ToLower();
+
+                if (_bigfile == null)
+                {
+                    MessageBox.Show("No bigfile is open, open a bigfile under 'File > Open'", "No bigfile open", MessageBoxButton.OK, MessageBoxImage.Error);
+                    return;
+                }
+
+                // find all files
+                var results = _bigfile.Records.Where(record =>
+                {
+                    string filename = null;
+
+                    if (record.Name != null)
+                    {
+                        // extract filename from full path
+                        filename = record.Name.Split("\\", StringSplitOptions.RemoveEmptyEntries).Last();
+                    }
+                    else
+                    {
+                        filename = record.Hash.ToString("X");
+                    }
+
+                    // simple contains query
+                    return filename.ToLower().Contains(query);
+                }).ToList();
+
+                // display results in file view
+                ShowFiles(results);
+
+                PathBox.Text = "Search results for " + query;
+
+                // TODO clear selection in directory view
+            }
         }
     }
 

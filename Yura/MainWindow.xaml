@@ -23,10 +23,11 @@
 
         <Grid.RowDefinitions>
             <RowDefinition Height="auto" />
-            <RowDefinition/>
             <RowDefinition Height="auto" />
+            <RowDefinition/>
         </Grid.RowDefinitions>
 
+        <!-- menu bar -->
         <Menu Grid.Row="0" Grid.ColumnSpan="3">
             <MenuItem Header="_File">
                 <MenuItem Command="Open"></MenuItem>
@@ -39,7 +40,22 @@
             <MenuItem Header="Settings" Click="SettingsCommand_Executed"></MenuItem>
         </Menu>
 
-        <TreeView SelectedItemChanged="DirectoryView_SelectedItemChanged" Name="DirectoryView" Grid.Row="1" Grid.Column="0">
+        <!-- bar with search -->
+        <Grid Grid.Row="1" Grid.ColumnSpan="3" Background="#f0f0f0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="auto" />
+            </Grid.ColumnDefinitions>
+
+            <TextBox Name="PathBox" Text="No bigfile opened" IsReadOnly="True" Grid.Column="0" Padding="3" Margin="3" />
+
+            <TextBox Name="SearchBox" KeyDown="SearchBox_KeyDown" Text="Search" Grid.Column="1"
+                     HorizontalAlignment="Right" GotFocus="SearchBox_GotFocus"
+                     Padding="3" Width="300" Margin="3" />
+        </Grid>
+
+        <!-- sidebar tree view with folders -->
+        <TreeView SelectedItemChanged="DirectoryView_SelectedItemChanged" Name="DirectoryView" Grid.Row="2" Grid.Column="0">
             <TreeView.Resources>
                 <HierarchicalDataTemplate DataType="{x:Type self:DirectoryViewFolder}" ItemsSource="{Binding Subfolders}">
                     <StackPanel Orientation="Horizontal">
@@ -50,9 +66,10 @@
             </TreeView.Resources>
         </TreeView>
 
-        <GridSplitter Grid.Row="1" Grid.Column="1" HorizontalAlignment="Stretch" Width="5"/>
+        <GridSplitter Grid.Row="2" Grid.Column="1" HorizontalAlignment="Stretch" Width="5"/>
 
-        <ListView x:Name="FileView" MouseDoubleClick="FileView_MouseDoubleClick" Grid.Row="1" Grid.Column="2">
+        <!-- main file view -->
+        <ListView Name="FileView" MouseDoubleClick="FileView_MouseDoubleClick" Grid.Row="2" Grid.Column="2">
             <ListView.ContextMenu>
                 <ContextMenu Opened="ContextMenu_ContextMenuOpening">
                     <MenuItem Name="ExportBtn" Click="ExportBtn_Click" Header="Export"/>

@@ -12,6 +12,7 @@ Yura is a bigfile browser for cdcEngine games, it allows you to browse, preview 
 | Legacy of Kain: Defiance | Supported |
 | Tomb Raider (2013) | Supported |
 | Rise of the Tomb Raider | Supported |
+| Shadow of the Tomb Raider | Supported |
 
 ## Features
 
