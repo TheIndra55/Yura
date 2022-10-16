@@ -42,7 +42,7 @@ namespace Yura.Archive
             }
 
             // load file list
-            FileList.Load(version < 5 ? HashingAlgorithm.Crc32 : HashingAlgorithm.Fnv1a);
+            FileList?.Load(version < 5 ? HashingAlgorithm.Crc32 : HashingAlgorithm.Fnv1a);
 
             var numArchives = reader.ReadUInt32();
             var numRecords = reader.ReadUInt32();
