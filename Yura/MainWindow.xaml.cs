@@ -57,6 +57,7 @@ namespace Yura
 
             _fileTypes = new Dictionary<string, Tuple<string, BitmapImage>>
             {
+                // game formats
                 { ".drm", new Tuple<string, BitmapImage>("Data Ram", _classIcon) },
                 { ".vrm", new Tuple<string, BitmapImage>("Video Ram", _stackIcon) },
                 { ".mul", new Tuple<string, BitmapImage>("MultiplexStream", _soundIcon) },
@@ -64,9 +65,25 @@ namespace Yura
                 { ".mus", new Tuple<string, BitmapImage>("Music", _soundIcon) },
                 { ".sam", new Tuple<string, BitmapImage>("Music Sample", _soundIcon) },
                 { ".ids", new Tuple<string, BitmapImage>("IDMap", _textIcon) },
-                { ".txt", new Tuple<string, BitmapImage>("Text File", _textIcon) },
                 { ".sch", new Tuple<string, BitmapImage>("SchemaFile", _textIcon) },
-                { ".ini", new Tuple<string, BitmapImage>("Text File", _textIcon) }
+                { ".tfb", new Tuple<string, BitmapImage>("PadShock Library", _binaryIcon) },
+
+                // regular files
+                { ".txt",  new Tuple<string, BitmapImage>("Text File", _textIcon) },
+                { ".ini",  new Tuple<string, BitmapImage>("Text File", _textIcon) },
+                { ".json", new Tuple<string, BitmapImage>("JavaScript Object Notation", _textIcon) },
+                { ".csv",  new Tuple<string, BitmapImage>("Comma Separated Values", _textIcon) },
+                { ".ico",  new Tuple<string, BitmapImage>("Icon", _imageIcon) },
+                { ".png",  new Tuple<string, BitmapImage>("Portable Network Graphics", _imageIcon) },
+
+                // Wwise
+                { ".bnk", new Tuple<string, BitmapImage>("Wwise SoundBank", _soundIcon) },
+                { ".wem", new Tuple<string, BitmapImage>("Wwise Encoded Media", _soundIcon) },
+
+                // Wii files (Reference: https://wiki.tockdom.com/wiki/Main_Page)
+                { ".tpl", new Tuple<string, BitmapImage>("Texture Palette Library", _imageIcon) },
+                { ".arc", new Tuple<string, BitmapImage>("GameCube Archive", _archiveIcon) },
+                { ".brsar", new Tuple<string, BitmapImage>("Binary Revolution Sound Archive", _archiveIcon)  }
             };
         }
 
