@@ -89,8 +89,8 @@ namespace Yura.Archive
             var file = record as DeusExRecord;
 
             // calculate in which bigfile the data is
-            var align = _alignment >> 11;
-            var bigfile = file.Offset / align;
+            var offset = (long)file.Offset << 11;
+            var bigfile = offset / _alignment;
 
             // get the right bigfile filename
             var name = Path.GetFileNameWithoutExtension(_file);
@@ -100,7 +100,7 @@ namespace Yura.Archive
             var stream = File.OpenRead(filename);
             var bytes = new byte[file.Size];
 
-            stream.Position = file.Offset % align << 11;
+            stream.Position = offset % _alignment;
             stream.Read(bytes, 0, (int)file.Size);
 
             stream.Close();

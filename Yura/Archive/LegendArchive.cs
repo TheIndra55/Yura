@@ -85,29 +85,29 @@ namespace Yura.Archive
         {
             var file = record as LegendRecord;
 
-            // calculate in which bigfile the data is
-            var align = _alignment >> 11;
-            var bigfile = file.Offset / align;
+            var offset = (long)file.Offset << 11;
+            string filename = null;
 
-            string filename;
+            // check whether the bigfile is split over multiple files
             if (_file.EndsWith(".000"))
             {
+                // calculate which bigfile the file is in, and get the file offset
+                var bigfile = offset / _alignment;
+                offset = offset % _alignment;
+
                 var name = Path.GetFileNameWithoutExtension(_file);
                 filename = Path.GetDirectoryName(_file) + Path.DirectorySeparatorChar + name + "." + bigfile.ToString("000");
             }
             else
             {
                 filename = _file;
-
-                // one file, set alignment to that file size
-                _alignment = (int)new FileInfo(_file).Length;
-                align = _alignment >> 11;
             }
 
+            // read the file
             var stream = File.OpenRead(filename);
             var bytes = new byte[file.Size];
 
-            stream.Position = file.Offset % align << 11;
+            stream.Position = offset;
             stream.Read(bytes, 0, (int)file.Size);
 
             stream.Close();
