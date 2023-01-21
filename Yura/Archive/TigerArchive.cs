@@ -108,6 +108,8 @@ namespace Yura.Archive
 
                 _files.Add(file);
             }
+
+            stream.Close();
         }
 
         public override IReadOnlyList<ArchiveRecord> Records
@@ -136,6 +138,8 @@ namespace Yura.Archive
 
             stream.Position = (long)file.Offset;
             stream.Read(bytes, 0, (int)file.Size);
+
+            stream.Close();
 
             return bytes;
         }

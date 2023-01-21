@@ -70,6 +70,8 @@ namespace Yura.Archive
 
                 reader.BaseStream.Position += 4;
             }
+
+            stream.Close();
         }
 
         public override IReadOnlyList<ArchiveRecord> Records
@@ -100,6 +102,8 @@ namespace Yura.Archive
 
             stream.Position = file.Offset % align << 11;
             stream.Read(bytes, 0, (int)file.Size);
+
+            stream.Close();
 
             return bytes;
         }

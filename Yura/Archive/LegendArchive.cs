@@ -110,6 +110,8 @@ namespace Yura.Archive
             stream.Position = file.Offset % align << 11;
             stream.Read(bytes, 0, (int)file.Size);
 
+            stream.Close();
+
             return bytes;
         }
 
