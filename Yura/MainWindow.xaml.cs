@@ -390,9 +390,16 @@ namespace Yura
             var path = Path.Combine(Path.GetTempPath(), "Yura", item.Name);
             Directory.CreateDirectory(Path.GetTempPath() + "\\Yura");
 
-            File.WriteAllBytes(path, file);
+            try
+            {
+                File.WriteAllBytes(path, file);
 
-            Process.Start("explorer", "\"" + path + "\"");
+                Process.Start("explorer", "\"" + path + "\"");
+            }
+            catch (IOException ex)
+            {
+                MessageBox.Show(ex.Message, "Failed to write file", MessageBoxButton.OK, MessageBoxImage.Warning);
+            }
         }
         
         private void ContextMenu_ContextMenuOpening(object sender, RoutedEventArgs e)
@@ -436,7 +443,15 @@ namespace Yura
             if (dialog.ShowDialog() == true)
             {
                 var file = _bigfile.Read(item.File);
-                File.WriteAllBytes(dialog.FileName, file);
+
+                try
+                {
+                    File.WriteAllBytes(dialog.FileName, file);
+                }
+                catch (IOException ex)
+                {
+                    MessageBox.Show(ex.Message, "Failed to write file", MessageBoxButton.OK, MessageBoxImage.Warning);
+                }
             }
         }
 
