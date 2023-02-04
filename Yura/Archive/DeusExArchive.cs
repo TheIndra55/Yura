@@ -82,8 +82,6 @@ namespace Yura.Archive
             }
         }
 
-        public override bool CanWrite => false;
-
         public override byte[] Read(ArchiveRecord record)
         {
             var file = record as DeusExRecord;
@@ -106,11 +104,6 @@ namespace Yura.Archive
             stream.Close();
 
             return bytes;
-        }
-
-        public override void Write(ArchiveRecord record, byte[] data)
-        {
-            throw new NotImplementedException();
         }
 
         public override uint GetSpecialisationMask(ArchiveRecord record)

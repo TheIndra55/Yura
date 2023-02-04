@@ -69,9 +69,7 @@
         <GridSplitter Grid.Row="2" Grid.Column="1" HorizontalAlignment="Stretch" Width="5"/>
 
         <!-- main file view -->
-        <ListView Name="FileView" MouseDoubleClick="FileView_MouseDoubleClick"
-                  Drop="FileView_Drop" AllowDrop="True"
-                  Grid.Row="2" Grid.Column="2">
+        <ListView Name="FileView" MouseDoubleClick="FileView_MouseDoubleClick" Grid.Row="2" Grid.Column="2">
             <ListView.ContextMenu>
                 <ContextMenu Opened="ContextMenu_ContextMenuOpening">
                     <MenuItem Name="ExportBtn" Click="ExportBtn_Click" Header="Export"/>

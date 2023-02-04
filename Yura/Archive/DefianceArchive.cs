@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.IO;
 using StreamReader = Yura.IO.StreamReader;
 
@@ -71,8 +70,6 @@ namespace Yura.Archive
             }
         }
 
-        public override bool CanWrite => false;
-
         public override byte[] Read(ArchiveRecord record)
         {
             var file = record as DefianceRecord;
@@ -86,11 +83,6 @@ namespace Yura.Archive
             stream.Close();
 
             return bytes;
-        }
-
-        public override void Write(ArchiveRecord record, byte[] data)
-        {
-            throw new NotImplementedException();
         }
 
         public override uint GetSpecialisationMask(ArchiveRecord record)

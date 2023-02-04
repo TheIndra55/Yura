@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using StreamReader = Yura.IO.StreamReader;
 
 namespace Yura.Archive
@@ -79,8 +78,6 @@ namespace Yura.Archive
             }
         }
 
-        public override bool CanWrite => true;
-
         public override byte[] Read(ArchiveRecord record)
         {
             var file = record as LegendRecord;
@@ -113,91 +110,6 @@ namespace Yura.Archive
             stream.Close();
 
             return bytes;
-        }
-
-        public override void Write(ArchiveRecord record, byte[] data)
-        {
-            var file = record as LegendRecord;
-
-            // find offset to write the file
-            var offset = FindFirstSpace(data.Length, file);
-
-            file.Offset = (uint)(offset >> 11);
-            file.Size = (uint)data.Length;
-
-            var bigfile = (file.Offset << 11) / _alignment;
-
-            // find right bigfile
-            var name = Path.GetFileNameWithoutExtension(_file);
-            var filename = Path.GetDirectoryName(_file) + Path.DirectorySeparatorChar + name + "." + bigfile.ToString("000");
-
-            // write the file data
-            var stream = File.OpenWrite(filename);
-
-            stream.Position = offset % _alignment;
-            stream.Write(data);
-
-            stream.Close();
-
-            // update file header
-            stream = File.OpenWrite(_file);
-
-            // find position of record in header
-            stream.Position = 4 + (_files.Count * 4) + (_files.IndexOf(file) * 16);
-
-            var size = BitConverter.GetBytes(file.Size);
-            stream.Write(size);
-
-            var bOffset = BitConverter.GetBytes(file.Offset);
-            stream.Write(bOffset);
-
-            stream.Close();
-        }
-
-        public long FindFirstSpace(int size, ArchiveRecord ignore)
-        {
-            // order records by offset
-            var records = _files.Where(x => x != ignore).OrderBy(x => x.Offset).ToList();
-
-            for (int i = 0; i < records.Count; i++)
-            {
-                var record = records[i];
-
-                // get first free position
-                var offset = (record.Offset << 11) + record.Size;
-
-                // find next aligned offset
-                while ((offset & 2047) != 0) offset++;
-
-                var end = offset + size;
-                var bigfile = (record.Offset << 11) / _alignment;
-
-                if (i >= records.Count - 1)
-                {
-                    for (int j = 0; j < 10; j++)
-                    {
-                        if (end < (bigfile + 1) * _alignment)
-                        {
-                            return offset;
-                        }
-
-                        bigfile++;
-                        offset = (uint)(bigfile * _alignment);
-
-                        if (bigfile > 999) break;
-                    }
-
-                    break;
-                }
-
-                // check if file fits
-                if (end < records[i + 1].Offset << 11 && end < (bigfile + 1) * _alignment)
-                {
-                    return offset;
-                }
-            }
-
-            throw new Exception("Failed to find space in bigfile");
         }
 
         public override uint GetSpecialisationMask(ArchiveRecord record)

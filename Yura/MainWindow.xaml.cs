@@ -38,8 +38,6 @@ namespace Yura
         private TextureFormat _textureFormat;
         private Game _currentGame;
 
-        private List<ArchiveRecord> _currentFolder;
-
         // the current open bigfile
         private ArchiveFile _bigfile;
 
@@ -229,8 +227,6 @@ namespace Yura
             {
                 PathBox.Text = bigfile + "\\" + path;
             }
-
-            _currentFolder = files;
 
             ShowFiles(files, selectedFile);
         }
@@ -547,48 +543,6 @@ namespace Yura
                 PathBox.Text = "Search results for " + query;
 
                 // TODO clear selection in directory view
-            }
-        }
-
-        private void FileView_Drop(object sender, DragEventArgs e)
-        {
-            if (_bigfile == null || !_bigfile.CanWrite)
-            {
-                return;
-            }
-
-            if (e.Data.GetDataPresent(DataFormats.FileDrop))
-            {
-                var files = (string[])e.Data.GetData(DataFormats.FileDrop);
-
-                foreach (var file in files)
-                {
-                    // currently only support replacing file, so find the current file record in the folder
-                    var filename = Path.GetFileName(file);
-                    var record = _currentFolder.FirstOrDefault(x => x.Name != null && Path.GetFileName(x.Name) == filename);
-
-                    if (record == null)
-                    {
-                        MessageBox.Show("Unable to add file, make sure a file exists with same name in the current folder.", "Failed to add file", MessageBoxButton.OK, MessageBoxImage.Error);
-                        return;
-                    }
-
-                    try
-                    {
-                        // read file and write into archive, bigfile implementation will take care of
-                        // finding an offset and writing it
-                        var data = File.ReadAllBytes(file);
-
-                        _bigfile.Write(record, data);
-                    }
-                    catch (Exception ex)
-                    {
-                        MessageBox.Show(ex.Message, "Failed to add file", MessageBoxButton.OK, MessageBoxImage.Error);
-                        return;
-                    }
-                }
-
-                MessageBox.Show($"{files.Length} files added", "Files added", MessageBoxButton.OK, MessageBoxImage.Information);
             }
         }
     }

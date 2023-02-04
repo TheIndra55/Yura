@@ -29,23 +29,11 @@ namespace Yura.Archive
         public abstract byte[] Read(ArchiveRecord record);
 
         /// <summary>
-        /// Writes the data to a file in the archive
-        /// </summary>
-        /// <param name="record">The file record, must be an existing record</param>
-        /// <param name="data">The data to write</param>
-        public abstract void Write(ArchiveRecord record, byte[] data);
-
-        /// <summary>
         /// Gets the specialisation mask of a record
         /// </summary>
         /// <param name="record">The record to get the specialisation of</param>
         /// <returns>The specialisation mask</returns>
         public abstract uint GetSpecialisationMask(ArchiveRecord record);
-
-        /// <summary>
-        /// Whether the archive implementation supports writing
-        /// </summary>
-        public abstract bool CanWrite { get; }
 
         /// <summary>
         /// Gets or sets the file list
