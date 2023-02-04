@@ -46,15 +46,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <None Update="FileLists\(PC) Tomb Raider Anniversary.txt">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Update="FileLists\(PSP) Tomb Raider Anniversary.txt">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Update="FileLists\(Wii) Tomb Raider Anniversary.txt">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
     <None Update="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
