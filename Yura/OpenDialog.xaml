@@ -15,6 +15,7 @@
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="Auto" />
             <ColumnDefinition />
+            <ColumnDefinition Width="Auto" />
         </Grid.ColumnDefinitions>
 
         <Grid.RowDefinitions>
@@ -61,6 +62,9 @@
             <ComboBoxItem IsSelected="True">0x9600000</ComboBoxItem>
             <ComboBoxItem>0x7FF00000</ComboBoxItem>
         </ComboBox>
+        <Image Source="Images/StatusInformation.png" Grid.Column="2" Grid.Row="4" Margin="5 0 0 0"
+               ToolTip="The alignment of the bigfile, this is needed to calculate the right file offset.
+                        &#x0a;For Legend and Anniversary this is usually 0x9600000, in Underworld and later use 0x7FF00000."/>
 
         <Button Grid.Row="5" Name="OkButton" Padding="5" Margin="10" Grid.ColumnSpan="2" HorizontalAlignment="Right" Click="OkButton_Click">Open</Button>
     </Grid>
