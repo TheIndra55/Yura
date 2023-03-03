@@ -418,7 +418,17 @@ namespace Yura
                         var path = Path.Combine(dialog.SelectedPath, item.Name);
 
                         var file = _bigfile.Read(item.File);
-                        File.WriteAllBytes(path, file);
+
+                        try
+                        {
+                            File.WriteAllBytes(path, file);
+                        }
+                        catch (Exception ex)
+                        {
+                            MessageBox.Show(ex.Message, "Failed to export files", MessageBoxButton.OK, MessageBoxImage.Warning);
+
+                            break;
+                        }
                     }
                 }
             }
