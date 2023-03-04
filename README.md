@@ -24,12 +24,12 @@ Yura is a bigfile browser for cdcEngine games, it allows you to browse, preview 
 
 ## Screenshots
 
-![image](https://user-images.githubusercontent.com/15322107/147368936-1174fb9c-89a3-475f-86b7-41fc0d1e17a3.png)
-![image](https://user-images.githubusercontent.com/15322107/147368937-d5ceedbc-2c51-4a6b-aa32-47bf4853ff9a.png)
-![image](https://user-images.githubusercontent.com/15322107/147372856-eada5598-73af-4071-a84e-4c735fe62a71.png)
+![image](https://user-images.githubusercontent.com/15322107/222868074-6bc096a4-bb6a-471e-b056-e0f3a798e5e0.png)
+![image](https://user-images.githubusercontent.com/15322107/222868080-38253b4e-16ad-4b17-ab4d-552e340aa6d1.png)
+![image](https://user-images.githubusercontent.com/15322107/222868084-7025ffca-c2b1-4813-a46b-7f45bb736234.png)
 
 ## File lists
 
 The bigfile itself has no file names only the hashed version, to get file names Yura uses lists of files. You can place them in the FileLists folder and Yura will pick up any files with the .txt extension.
 
-![image](https://user-images.githubusercontent.com/15322107/147369210-caffa3a6-7e04-4f5f-8cbd-6c07d1d995e5.png)
+![image](https://user-images.githubusercontent.com/15322107/222868186-64dde741-6d13-4e4f-a36a-a11e59e7d960.png)
