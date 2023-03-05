@@ -40,9 +40,18 @@ namespace Yura
             _window = new MainWindow();
             _window.Show();
 
-            if (e.Args.Length > 0 && File.Exists(e.Args[0]))
+            if (e.Args.Length > 0 && File.Exists(e.Args[e.Args.Length - 1]))
             {
-                _window.OpenBigfileDialog(e.Args[0]);
+                var options = new CommandLineOptions(e.Args);
+
+                if (options.HasOption("-game"))
+                {
+                    _window.OpenBigfile(options.Bigfile, options);
+                }
+                else
+                {
+                    _window.OpenBigfileDialog(options.Bigfile);
+                }
             }
         }
 

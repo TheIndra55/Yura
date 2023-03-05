@@ -125,21 +125,21 @@ namespace Yura
 
             if (dialog.ShowDialog() == true)
             {
-                _littleEndian = dialog.LittleEndian;
-                _textureFormat = dialog.TextureFormat;
-
-                OpenBigfile(bigfile, dialog.Game, dialog.FileList, dialog.Alignment);
+                OpenBigfile(bigfile, dialog);
             }
         }
 
-        private void OpenBigfile(string bigfile, Game game, string fileList, int alignment)
+        public void OpenBigfile(string bigfile, IFileSettings settings)
         {
-            var list = (fileList == null) ? null : new FileList(fileList, game != Game.Tiger);
+            var list = (settings.FileList == null) ? null : new FileList(settings.FileList, settings.Game != Game.Tiger);
 
-            switch(game)
+            _littleEndian = settings.LittleEndian;
+            _textureFormat = settings.TextureFormat;
+
+            switch (settings.Game)
             {
                 case Game.Legend:
-                    _bigfile = new LegendArchive(bigfile, alignment, _littleEndian);
+                    _bigfile = new LegendArchive(bigfile, settings.Alignment, _littleEndian);
                     break;
                 case Game.DeusEx:
                     _bigfile = new DeusExArchive(bigfile, _littleEndian);
@@ -155,7 +155,7 @@ namespace Yura
                     return;
             }
 
-            _currentGame = game;
+            _currentGame = settings.Game;
             _bigfile.FileList = list;
 
             PathBox.Text = Path.GetFileName(bigfile);

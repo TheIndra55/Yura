@@ -9,7 +9,7 @@ namespace Yura
     /// <summary>
     /// Interaction logic for OpenDialog.xaml
     /// </summary>
-    public partial class OpenDialog : Window
+    public partial class OpenDialog : Window, IFileSettings
     {
         public OpenDialog()
         {

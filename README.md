@@ -1,6 +1,6 @@
 # Yura
 
-Yura is a bigfile browser for cdcEngine games, it allows you to browse, preview and extract files without extracting the whole bigfile.
+Yura is a bigfile browser for cdcEngine games, it allows to browse, preview and extract files without extracting the complete bigfile.
 
 | Game | Status |
 |------|--------|
@@ -20,13 +20,12 @@ Yura is a bigfile browser for cdcEngine games, it allows you to browse, preview 
 - Browse and view files
 - Export files
 - Image and locale file viewer
-- Deep search
+- Search and deep search
 
 ## Screenshots
 
-![image](https://user-images.githubusercontent.com/15322107/222868074-6bc096a4-bb6a-471e-b056-e0f3a798e5e0.png)
-![image](https://user-images.githubusercontent.com/15322107/222868080-38253b4e-16ad-4b17-ab4d-552e340aa6d1.png)
 ![image](https://user-images.githubusercontent.com/15322107/222868084-7025ffca-c2b1-4813-a46b-7f45bb736234.png)
+![image](https://user-images.githubusercontent.com/15322107/222868080-38253b4e-16ad-4b17-ab4d-552e340aa6d1.png)
 
 ## File lists
 
