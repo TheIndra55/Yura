@@ -17,17 +17,20 @@ namespace Yura
 
             // fetch all file lists
             var folder = Path.Combine(AppContext.BaseDirectory, "FileLists");
-
             var lists = new List<FileListItem>();
-            foreach(var file in Directory.GetFiles(folder, "*.txt"))
-            {
-                var option = new FileListItem()
-                {
-                    Name = Path.GetFileNameWithoutExtension(file),
-                    Path = file
-                };
 
-                lists.Add(option);
+            if (Directory.Exists(folder))
+            {
+                foreach (var file in Directory.GetFiles(folder, "*.txt"))
+                {
+                    var option = new FileListItem()
+                    {
+                        Name = Path.GetFileNameWithoutExtension(file),
+                        Path = file
+                    };
+
+                    lists.Add(option);
+                }
             }
 
             FileListSelect.ItemsSource = lists;

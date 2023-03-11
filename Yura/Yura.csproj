@@ -23,7 +23,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Sentry" Version="3.28.1" />
+    <PackageReference Include="Sentry" Version="3.29.1" />
   </ItemGroup>
 
   <ItemGroup>
