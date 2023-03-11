@@ -444,7 +444,15 @@ namespace Yura
         private void ExportFile(FileViewFile item)
         {
             var dialog = new SaveFileDialog();
+            dialog.Filter = "All Files (*.*)|*.*";
             dialog.FileName = item.Name;
+
+            if (item.Type != "File")
+            {
+                var ext = Path.GetExtension(item.Name);
+
+                dialog.Filter = $"{item.Type} (*{ext})|*{ext}|All Files (*.*)|*.*";
+            }
 
             if (dialog.ShowDialog() == true)
             {
