@@ -151,7 +151,7 @@ namespace Yura
                     _bigfile = new TigerArchive(bigfile, _littleEndian);
                     break;
                 default:
-                    MessageBox.Show(this, "You did not select a game, make sure to select one using the 'Game' dropdown.", "No game selected", MessageBoxButton.OK, MessageBoxImage.Exclamation);
+                    MessageBox.Show(this, Properties.Resources.NoGameSelectedMessage, Properties.Resources.NoGameSelected, MessageBoxButton.OK, MessageBoxImage.Exclamation);
                     return;
             }
 
@@ -166,7 +166,7 @@ namespace Yura
             }
             catch (Exception e)
             {
-                MessageBox.Show(this, e.Message, "Failed to open bigfile", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show(this, e.Message, Properties.Resources.FailedOpenBigfile, MessageBoxButton.OK, MessageBoxImage.Error);
                 return;
             }
 
@@ -404,7 +404,7 @@ namespace Yura
             }
             catch (IOException ex)
             {
-                MessageBox.Show(ex.Message, "Failed to write file", MessageBoxButton.OK, MessageBoxImage.Warning);
+                MessageBox.Show(ex.Message, Properties.Resources.FailedWriteFile, MessageBoxButton.OK, MessageBoxImage.Warning);
             }
         }
         
@@ -444,7 +444,7 @@ namespace Yura
                         }
                         catch (Exception ex)
                         {
-                            MessageBox.Show(ex.Message, "Failed to export files", MessageBoxButton.OK, MessageBoxImage.Warning);
+                            MessageBox.Show(ex.Message, Properties.Resources.FailedExportFiles, MessageBoxButton.OK, MessageBoxImage.Warning);
 
                             break;
                         }
@@ -492,7 +492,7 @@ namespace Yura
                 }
                 catch (IOException ex)
                 {
-                    MessageBox.Show(ex.Message, "Failed to write file", MessageBoxButton.OK, MessageBoxImage.Warning);
+                    MessageBox.Show(ex.Message, Properties.Resources.FailedWriteFile, MessageBoxButton.OK, MessageBoxImage.Warning);
                 }
             }
         }
@@ -560,7 +560,7 @@ namespace Yura
 
                 if (_bigfile == null)
                 {
-                    MessageBox.Show("No bigfile is open, open a bigfile under 'File > Open'", "No bigfile open", MessageBoxButton.OK, MessageBoxImage.Error);
+                    MessageBox.Show(Properties.Resources.NoBigfileOpenMessage, Properties.Resources.NoBigfileOpen, MessageBoxButton.OK, MessageBoxImage.Error);
                     return;
                 }
 

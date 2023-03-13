@@ -117,10 +117,40 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="DeepSearchNotSupported" xml:space="preserve">
+    <value>This game is currently not supported for deep search.</value>
+  </data>
+  <data name="FailedExportFiles" xml:space="preserve">
+    <value>Failed to export files</value>
+  </data>
+  <data name="FailedOpenBigfile" xml:space="preserve">
+    <value>Failed to open bigfile</value>
+  </data>
+  <data name="FailedWriteFile" xml:space="preserve">
+    <value>Failed to write file</value>
+  </data>
   <data name="FilePartNotFound" xml:space="preserve">
     <value>File part not found</value>
   </data>
   <data name="FilePartNotFoundMessage" xml:space="preserve">
     <value>A part of the bigfile was not found, make sure you are using the right alignment and your game files are complete.</value>
+  </data>
+  <data name="GameNotSupported" xml:space="preserve">
+    <value>Game not supported</value>
+  </data>
+  <data name="NoBigfileOpen" xml:space="preserve">
+    <value>No bigfile open</value>
+  </data>
+  <data name="NoBigfileOpenMessage" xml:space="preserve">
+    <value>No bigfile is open, open a bigfile under 'File &gt; Open'.</value>
+  </data>
+  <data name="NoBigfileOpenMessage2" xml:space="preserve">
+    <value>No bigfile is open, open a bigfile under 'File &gt; Open' and reopen this window.</value>
+  </data>
+  <data name="NoGameSelected" xml:space="preserve">
+    <value>No game selected</value>
+  </data>
+  <data name="NoGameSelectedMessage" xml:space="preserve">
+    <value>You did not select a game, make sure to select one using the 'Game' dropdown.</value>
   </data>
 </root>

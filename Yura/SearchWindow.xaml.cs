@@ -28,7 +28,7 @@ namespace Yura
         {
             if (Archive == null)
             {
-                MessageBox.Show(this, "No bigfile is open, open a bigfile under 'File > Open' and reopen this window.", "No bigfile open", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show(this, Properties.Resources.NoBigfileOpenMessage2, Properties.Resources.NoBigfileOpen, MessageBoxButton.OK, MessageBoxImage.Error);
                 return;
             }
 
@@ -94,7 +94,7 @@ namespace Yura
                 // check drm version
                 if (BitConverter.ToUInt32(content) != 14)
                 {
-                    MessageBox.Show("This game is currently not supported for deep search.", "Game not supported", MessageBoxButton.OK, MessageBoxImage.Error);
+                    MessageBox.Show(Properties.Resources.DeepSearchNotSupported, Properties.Resources.GameNotSupported, MessageBoxButton.OK, MessageBoxImage.Error);
                     break;
                 }
 

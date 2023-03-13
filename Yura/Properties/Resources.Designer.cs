@@ -61,6 +61,42 @@ namespace Yura.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to This game is currently not supported for deep search..
+        /// </summary>
+        internal static string DeepSearchNotSupported {
+            get {
+                return ResourceManager.GetString("DeepSearchNotSupported", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Failed to export files.
+        /// </summary>
+        internal static string FailedExportFiles {
+            get {
+                return ResourceManager.GetString("FailedExportFiles", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Failed to open bigfile.
+        /// </summary>
+        internal static string FailedOpenBigfile {
+            get {
+                return ResourceManager.GetString("FailedOpenBigfile", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Failed to write file.
+        /// </summary>
+        internal static string FailedWriteFile {
+            get {
+                return ResourceManager.GetString("FailedWriteFile", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to File part not found.
         /// </summary>
         internal static string FilePartNotFound {
@@ -75,6 +111,60 @@ namespace Yura.Properties {
         internal static string FilePartNotFoundMessage {
             get {
                 return ResourceManager.GetString("FilePartNotFoundMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Game not supported.
+        /// </summary>
+        internal static string GameNotSupported {
+            get {
+                return ResourceManager.GetString("GameNotSupported", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to No bigfile open.
+        /// </summary>
+        internal static string NoBigfileOpen {
+            get {
+                return ResourceManager.GetString("NoBigfileOpen", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to No bigfile is open, open a bigfile under &apos;File &gt; Open&apos;..
+        /// </summary>
+        internal static string NoBigfileOpenMessage {
+            get {
+                return ResourceManager.GetString("NoBigfileOpenMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to No bigfile is open, open a bigfile under &apos;File &gt; Open&apos; and reopen this window..
+        /// </summary>
+        internal static string NoBigfileOpenMessage2 {
+            get {
+                return ResourceManager.GetString("NoBigfileOpenMessage2", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to No game selected.
+        /// </summary>
+        internal static string NoGameSelected {
+            get {
+                return ResourceManager.GetString("NoGameSelected", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to You did not select a game, make sure to select one using the &apos;Game&apos; dropdown..
+        /// </summary>
+        internal static string NoGameSelectedMessage {
+            get {
+                return ResourceManager.GetString("NoGameSelectedMessage", resourceCulture);
             }
         }
     }
