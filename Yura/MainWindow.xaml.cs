@@ -345,7 +345,17 @@ namespace Yura
                 return;
             }
 
-            var file = _bigfile.Read(item.File);
+            byte[] file;
+            try
+            {
+                file = _bigfile.Read(item.File);
+            }
+            catch (FileNotFoundException)
+            {
+                MessageBox.Show(Properties.Resources.FilePartNotFoundMessage, Properties.Resources.FilePartNotFound, MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
+            }
+
             var size = item.File.Size;
 
             // if RAW magic open in texture viewer
@@ -417,7 +427,16 @@ namespace Yura
                     {
                         var path = Path.Combine(dialog.SelectedPath, item.Name);
 
-                        var file = _bigfile.Read(item.File);
+                        byte[] file;
+                        try
+                        {
+                            file = _bigfile.Read(item.File);
+                        }
+                        catch (FileNotFoundException)
+                        {
+                            MessageBox.Show(Properties.Resources.FilePartNotFoundMessage, Properties.Resources.FilePartNotFound, MessageBoxButton.OK, MessageBoxImage.Error);
+                            return;
+                        }
 
                         try
                         {
@@ -456,7 +475,16 @@ namespace Yura
 
             if (dialog.ShowDialog() == true)
             {
-                var file = _bigfile.Read(item.File);
+                byte[] file;
+                try
+                {
+                    file = _bigfile.Read(item.File);
+                }
+                catch (FileNotFoundException)
+                {
+                    MessageBox.Show(Properties.Resources.FilePartNotFoundMessage, Properties.Resources.FilePartNotFound, MessageBoxButton.OK, MessageBoxImage.Error);
+                    return;
+                }
 
                 try
                 {

@@ -80,7 +80,16 @@ namespace Yura
         {
             foreach (var file in files)
             {
-                var content = Archive.Read(file);
+                byte[] content;
+                try
+                {
+                    content = Archive.Read(file);
+                }
+                catch (FileNotFoundException)
+                {
+                    MessageBox.Show(Properties.Resources.FilePartNotFoundMessage, Properties.Resources.FilePartNotFound, MessageBoxButton.OK, MessageBoxImage.Error);
+                    break;
+                }
 
                 // check drm version
                 if (BitConverter.ToUInt32(content) != 14)
