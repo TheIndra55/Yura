@@ -97,15 +97,17 @@ namespace Yura
 
         private void GameSelect_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            AlignmentField.IsEnabled = GameSelect.SelectedIndex < (int)Game.DeusEx;
+            AlignmentField.IsEnabled = GameSelect.SelectedIndex == (int)Game.Legend;
         }
     }
 
     public enum TextureFormat
     {
         Pc,
-        Wii,
-        Ps3
+        Ps2,
+        Ps3,
+        Xbox,
+        Wii
     }
 
     public enum Game

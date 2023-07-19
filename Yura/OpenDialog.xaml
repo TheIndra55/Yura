@@ -53,8 +53,10 @@
         <Label Grid.Column="0" Grid.Row="3">Platform</Label>
         <ComboBox Name="TextureFormatSelect" Grid.Column="1" Grid.Row="3">
             <ComboBoxItem IsSelected="True">PC</ComboBoxItem>
-            <ComboBoxItem>Wii</ComboBoxItem>
+            <ComboBoxItem>PS2</ComboBoxItem>
             <ComboBoxItem>PS3</ComboBoxItem>
+            <ComboBoxItem>Xbox</ComboBoxItem>
+            <ComboBoxItem>Wii</ComboBoxItem>
         </ComboBox>
 
         <Label Grid.Column="0" Grid.Row="4">Alignment</Label>

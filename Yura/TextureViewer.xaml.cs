@@ -23,19 +23,21 @@ namespace Yura
             var textureData = new byte[width + height * stride];
             reader.BaseStream.Read(textureData);
 
-            BitmapSource image = null;
+            BitmapSource image;
 
-            if (TextureFormat == TextureFormat.Pc)
+            switch (TextureFormat)
             {
-                image = BitmapSource.Create(width, height, 96, 96, PixelFormats.Bgra32, null, textureData, stride);
-            }
-            else if (TextureFormat == TextureFormat.Wii)
-            {
-                image = new CMPRTexture(width, height, textureData);
-            }
-            else if (TextureFormat == TextureFormat.Ps3)
-            {
-                image = new PS3Texture(width, height, textureData);
+                case TextureFormat.Wii:
+                    image = new CMPRTexture(width, height, textureData);
+                    break;
+
+                case TextureFormat.Ps3:
+                    image = new CMPRTexture(width, height, textureData);
+                    break;
+
+                default:
+                    image = BitmapSource.Create(width, height, 96, 96, PixelFormats.Bgra32, null, textureData, stride);
+                    break;
             }
 
             TextureImage.Source = image;

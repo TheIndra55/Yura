@@ -145,7 +145,7 @@ namespace Yura
                     _bigfile = new DeusExArchive(bigfile, _littleEndian);
                     break;
                 case Game.Defiance:
-                    _bigfile = new DefianceArchive(bigfile, _littleEndian);
+                    _bigfile = new DefianceArchive(bigfile, settings.TextureFormat, _littleEndian);
                     break;
                 case Game.Tiger:
                     _bigfile = new TigerArchive(bigfile, _littleEndian);

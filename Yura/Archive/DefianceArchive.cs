@@ -6,15 +6,19 @@ namespace Yura.Archive
 {
     class DefianceArchive : ArchiveFile
     {
+        private const int XboxAlignment = 0xFA00000;
+
         private string _file;
+        private TextureFormat _platform;
         private bool _littleEndian;
 
         private List<DefianceRecord> _files;
 
-        public DefianceArchive(string path, bool littleEndian = true)
+        public DefianceArchive(string path, TextureFormat platform, bool littleEndian = true)
             : base(path)
         {
             _file = path;
+            _platform = platform;
             _littleEndian = littleEndian;
 
             _files = new List<DefianceRecord>();
@@ -74,10 +78,24 @@ namespace Yura.Archive
         {
             var file = record as DefianceRecord;
 
-            var stream = File.OpenRead(_file);
+            var filename = _file;
+            var offset = file.Offset;
+
+            if (_platform == TextureFormat.Xbox)
+            {
+                // xbox bigfiles in this game are spread over multiple physical files
+                // calculate the bigfile this file is in
+                var bigfile = offset / XboxAlignment;
+                offset = offset % XboxAlignment;
+
+                var name = Path.GetFileNameWithoutExtension(_file);
+                filename = Path.GetDirectoryName(_file) + Path.DirectorySeparatorChar + name + "." + bigfile.ToString("000");
+            }
+
+            var stream = File.OpenRead(filename);
             var bytes = new byte[file.Size];
 
-            stream.Position = file.Offset;
+            stream.Position = offset;
             stream.Read(bytes, 0, (int)file.Size);
 
             stream.Close();
