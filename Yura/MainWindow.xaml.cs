@@ -535,6 +535,23 @@ namespace Yura
             searchWindow.Show();
         }
 
+        private void CopyFileList_Click(object sender, RoutedEventArgs e)
+        {
+            if (_bigfile == null)
+            {
+                return;
+            }
+
+            var output = new StringBuilder();
+
+            foreach (var file in _bigfile.Records)
+            {
+                output.AppendLine($"{file.Hash:X8}\t{file.Size}\t{_bigfile.GetSpecialisationMask(file):X}\t{file.Name}");
+            }
+
+            Clipboard.SetText(output.ToString());
+        }
+
         private void CloseCommand_Executed(object sender, ExecutedRoutedEventArgs e)
         {
             Close();

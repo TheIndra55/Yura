@@ -36,6 +36,7 @@
             </MenuItem>
             <MenuItem Header="_Tools">
                 <MenuItem Header="Deep search" Command="Search"></MenuItem>
+                <MenuItem Header="Copy file list" Click="CopyFileList_Click"></MenuItem>
             </MenuItem>
             <MenuItem Header="Settings" Click="SettingsCommand_Executed"></MenuItem>
         </Menu>
