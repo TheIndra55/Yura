@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:Yura"
         mc:Ignorable="d"
         Background="LightGray"
-        Icon="Yura.ico"
+        Icon="../Yura.ico"
         Title="Texture" Height="450" Width="800">
     <Grid>
         <Image Name="TextureImage"/>

@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Yura"
         mc:Ignorable="d"
-        Icon="Yura.ico"
+        Icon="../Yura.ico"
         Title="locals.bin" Height="450" Width="800">
     <Window.CommandBindings>
         <CommandBinding Command="Save" Executed="ExportCommand_Executed"/>

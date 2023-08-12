@@ -8,7 +8,7 @@
         Title="Deep search"
         WindowStartupLocation="CenterOwner"
         Height="600" Width="500"
-        Icon="Yura.ico">
+        Icon="../Yura.ico">
     <Grid Margin="10">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="Auto" />
