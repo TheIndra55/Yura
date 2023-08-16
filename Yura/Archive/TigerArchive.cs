@@ -28,7 +28,7 @@ namespace Yura.Archive
 
             var magic = reader.ReadUInt32();
 
-            if (magic != 0x53464154)
+            if (magic != 0x53464154 && magic != 0x54414653)
             {
                 throw new Exception("File is not a tiger archive file");
             }
