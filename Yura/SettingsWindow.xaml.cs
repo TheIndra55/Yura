@@ -13,6 +13,7 @@ namespace Yura
     public partial class SettingsWindow : Window
     {
         private const string ProgId = "Yura";
+        private const string ProgFriendlyName = "Crystal Dynamics Bigfile";
 
         public SettingsWindow()
         {
@@ -43,15 +44,16 @@ namespace Yura
             {
                 using var reg = Registry.ClassesRoot;
 
-                // associate .000 and .dat with Yura
+                // associate .000, .dat and .tiger with Yura
                 reg.CreateSubKey(".000").SetValue(string.Empty, ProgId);
                 reg.CreateSubKey(".dat").SetValue(string.Empty, ProgId);
+                reg.CreateSubKey(".tiger").SetValue(string.Empty, ProgId);
 
                 // define yura, see https://learn.microsoft.com/en-us/windows/win32/shell/fa-progids
                 var program = reg.CreateSubKey(ProgId);
 
-                program.SetValue(string.Empty, ProgId);
-                program.SetValue("FriendlyTypeName", ProgId);
+                program.SetValue(string.Empty, ProgFriendlyName);
+                program.SetValue("FriendlyTypeName", ProgFriendlyName);
 
                 var path = Process.GetCurrentProcess().MainModule.FileName;
                 program.CreateSubKey(@"shell\open\command").SetValue(string.Empty, $"\"{path}\" \"%1\"");
@@ -59,7 +61,7 @@ namespace Yura
                 // notify the shell about file associations been updated
                 SHChangeNotify(0x08000000, 0, IntPtr.Zero, IntPtr.Zero);
 
-                MessageBox.Show("Yura will now open .000 and .dat files.", "File associations set", MessageBoxButton.OK, MessageBoxImage.Information);
+                MessageBox.Show("Yura will now open .000, .tiger and .dat files.", "File associations set", MessageBoxButton.OK, MessageBoxImage.Information);
             }
             catch (UnauthorizedAccessException)
             {
