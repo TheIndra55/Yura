@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 
 namespace Yura.Archive
@@ -80,6 +81,14 @@ namespace Yura.Archive
 
                 return true;
             }).ToList();
+        }
+
+        protected string FormatBigfile(string path, int part)
+        {
+            var name = Path.GetFileNameWithoutExtension(path);
+            var directory = Path.GetDirectoryName(path);
+
+            return Path.Combine(directory, name + "." + part.ToString("000"));
         }
     }
 }

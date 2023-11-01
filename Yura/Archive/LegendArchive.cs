@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using System.IO.Compression;
 using StreamReader = Yura.IO.StreamReader;
 
 namespace Yura.Archive
@@ -55,6 +56,7 @@ namespace Yura.Archive
                 file.Size = reader.ReadUInt32();
                 file.Offset = reader.ReadUInt32();
                 file.Specialisation = reader.ReadUInt32();
+                file.CompressedSize = reader.ReadUInt32();
 
                 // check if hash exist in file list
                 if (FileList != null && FileList.Files.TryGetValue(file.Hash, out string name))
@@ -63,8 +65,6 @@ namespace Yura.Archive
                 }
 
                 _files.Add(file);
-
-                reader.BaseStream.Position += 4;
             }
 
             stream.Close();
@@ -83,33 +83,61 @@ namespace Yura.Archive
             var file = record as LegendRecord;
 
             var offset = (long)file.Offset << 11;
-            string filename = null;
+            string path = null;
 
             // check whether the bigfile is split over multiple files
             if (_file.EndsWith(".000"))
             {
                 // calculate which bigfile the file is in, and get the file offset
-                var bigfile = offset / _alignment;
+                var bigfile = (int)(offset / _alignment);
                 offset = offset % _alignment;
 
-                var name = Path.GetFileNameWithoutExtension(_file);
-                filename = Path.GetDirectoryName(_file) + Path.DirectorySeparatorChar + name + "." + bigfile.ToString("000");
+                path = FormatBigfile(_file, bigfile);
             }
             else
             {
-                filename = _file;
+                path = _file;
             }
 
             // read the file
-            var stream = File.OpenRead(filename);
-            var bytes = new byte[file.Size];
+            byte[] data;
+            if (file.CompressedSize == 0)
+            {
+                data = new byte[file.Size];
+                Read(path, offset, file.Size, data);
+
+                return data;
+            }
+            else
+            {
+                data = new byte[file.Size];
+                var compressedData = new byte[file.CompressedSize];
+
+                Read(path, offset, file.CompressedSize, compressedData);
+                Decompress(compressedData, data);
+            }
+
+            return data;
+        }
+
+        private void Read(string path, long offset, uint size, byte[] data)
+        {
+            var stream = File.OpenRead(path);
 
             stream.Position = offset;
-            stream.Read(bytes, 0, (int)file.Size);
+            stream.Read(data, 0, (int)size);
 
             stream.Close();
+        }
 
-            return bytes;
+        private void Decompress(byte[] compressedData, byte[] data)
+        {
+            var stream = new MemoryStream(compressedData);
+            var decompressed = new MemoryStream(data);
+
+            var zlib = new ZLibStream(stream, CompressionMode.Decompress);
+
+            zlib.CopyTo(decompressed);
         }
 
         public override uint GetSpecialisationMask(ArchiveRecord record)
@@ -124,5 +152,6 @@ namespace Yura.Archive
     {
         public uint Offset { get; set; }
         public uint Specialisation { get; set; }
+        public uint CompressedSize { get; set; }
     }
 }
