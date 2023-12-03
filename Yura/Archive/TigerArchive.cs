@@ -8,14 +8,16 @@ namespace Yura.Archive
     class TigerArchive : ArchiveFile
     {
         private string _file;
+        private TextureFormat _platform;
         private bool _littleEndian;
 
         private List<TigerRecord> _files;
 
-        public TigerArchive(string path, bool littleEndian = true)
+        public TigerArchive(string path, TextureFormat platform, bool littleEndian = true)
             : base(path)
         {
             _file = path;
+            _platform = platform;
             _littleEndian = littleEndian;
 
             _files = new List<TigerRecord>();
@@ -48,7 +50,8 @@ namespace Yura.Archive
             var numRecords = reader.ReadUInt32();
 
             // skip 4 bytes, or 8 in version 5 or later
-            reader.BaseStream.Position += version < 5 ? 4 : 8;
+            // also dont skip on PS4 since some idiot at CD or Eidos decided this field does not exist on PS4
+            reader.BaseStream.Position += version >= 5 && _platform != TextureFormat.Orbis ? 8 : 4;
 
             // skip over config name
             reader.BaseStream.Position += 32;

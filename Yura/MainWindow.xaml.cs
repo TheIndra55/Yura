@@ -148,7 +148,7 @@ namespace Yura
                     _bigfile = new DefianceArchive(bigfile, settings.TextureFormat, _littleEndian);
                     break;
                 case Game.Tiger:
-                    _bigfile = new TigerArchive(bigfile, _littleEndian);
+                    _bigfile = new TigerArchive(bigfile, settings.TextureFormat, _littleEndian);
                     break;
                 default:
                     MessageBox.Show(this, Properties.Resources.NoGameSelectedMessage, Properties.Resources.NoGameSelected, MessageBoxButton.OK, MessageBoxImage.Exclamation);

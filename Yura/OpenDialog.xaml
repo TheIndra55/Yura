@@ -54,8 +54,13 @@
         <ComboBox Name="TextureFormatSelect" Grid.Column="1" Grid.Row="3">
             <ComboBoxItem IsSelected="True">PC</ComboBoxItem>
             <ComboBoxItem>PS2</ComboBoxItem>
+            <ComboBoxItem>PSP</ComboBoxItem>
             <ComboBoxItem>PS3</ComboBoxItem>
+            <ComboBoxItem>PS4</ComboBoxItem>
             <ComboBoxItem>Xbox</ComboBoxItem>
+            <ComboBoxItem>Xbox 360</ComboBoxItem>
+            <ComboBoxItem>Xbox One</ComboBoxItem>
+            <ComboBoxItem>Xbox Series X</ComboBoxItem>
             <ComboBoxItem>Wii</ComboBoxItem>
         </ComboBox>
 

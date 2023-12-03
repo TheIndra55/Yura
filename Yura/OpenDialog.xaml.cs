@@ -75,9 +75,7 @@ namespace Yura
         {
             get
             {
-                var format = (TextureFormatSelect.SelectedItem as ComboBoxItem).Content.ToString();
-
-                return (TextureFormat)Enum.Parse(typeof(TextureFormat), format, true);
+                return (TextureFormat)TextureFormatSelect.SelectedIndex;
             }
         }
 
@@ -104,9 +102,20 @@ namespace Yura
     public enum TextureFormat
     {
         Pc,
+
+        // PlayStation
         Ps2,
+        Psp,
         Ps3,
+        Orbis,
+
+        // Xbox
         Xbox,
+        Xenon,
+        Durango,
+        Scarlett,
+
+        // Nintendo
         Wii
     }
 
