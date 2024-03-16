@@ -116,7 +116,8 @@ namespace Yura
         Scarlett,
 
         // Nintendo
-        Wii
+        Wii,
+        GameCube
     }
 
     public enum Game
