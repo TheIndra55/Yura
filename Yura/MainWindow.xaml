@@ -102,7 +102,11 @@
                             <GridViewColumnHeader Tag="Size" Click="GridViewColumnHeader_Click">Size</GridViewColumnHeader>
                         </GridViewColumn.Header>
                     </GridViewColumn>
-                    <GridViewColumn Width="300" Header="Specialisation" DisplayMemberBinding="{Binding SpecMask}" />
+                    <GridViewColumn Width="300" DisplayMemberBinding="{Binding SpecMask}">
+                        <GridViewColumn.Header>
+                            <GridViewColumnHeader Tag="SpecMask" Click="GridViewColumnHeader_Click">Specialisation</GridViewColumnHeader>
+                        </GridViewColumn.Header>
+                    </GridViewColumn>
                 </GridView>
             </ListView.View>
         </ListView>
