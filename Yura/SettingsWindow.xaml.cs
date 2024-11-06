@@ -19,6 +19,7 @@ namespace Yura
         {
             InitializeComponent();
 
+            Theme.SelectedIndex = Properties.Settings.Default.Theme;
             SpecMaskView.SelectedIndex = Properties.Settings.Default.SpecMaskView;
             ClickAction.SelectedIndex = Properties.Settings.Default.ClickAction;
         }
@@ -26,6 +27,11 @@ namespace Yura
         private void Window_Closed(object sender, EventArgs e)
         {
             Properties.Settings.Default.Save();
+        }
+
+        private void Theme_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            Properties.Settings.Default.Theme = Theme.SelectedIndex;
         }
 
         private void SpecMaskView_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -47,7 +53,6 @@ namespace Yura
                 // associate .000, .dat and .tiger with Yura
                 reg.CreateSubKey(".000").SetValue(string.Empty, ProgId);
                 reg.CreateSubKey(".dat").SetValue(string.Empty, ProgId);
-                reg.CreateSubKey(".tiger").SetValue(string.Empty, ProgId);
 
                 // define yura, see https://learn.microsoft.com/en-us/windows/win32/shell/fa-progids
                 var program = reg.CreateSubKey(ProgId);

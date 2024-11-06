@@ -20,11 +20,21 @@
             <RowDefinition Height="auto" />
             <RowDefinition Height="auto" />
             <RowDefinition Height="auto" />
+            <RowDefinition Height="auto" />
         </Grid.RowDefinitions>
 
-        <!-- spec mask view -->
-        <Label Grid.Column="0" Grid.Row="0" Margin="5">Specialisation mask view</Label>
+        <!-- theme -->
+        <Label Grid.Column="0" Grid.Row="0" Margin="5">Theme</Label>
         <ComboBox Grid.Column="1" Grid.Row="0" Margin="5"
+                  Name="Theme"
+                  SelectionChanged="Theme_SelectionChanged">
+            <ComboBoxItem>Light</ComboBoxItem>
+            <ComboBoxItem>Dark</ComboBoxItem>
+        </ComboBox>
+
+        <!-- spec mask view -->
+        <Label Grid.Column="0" Grid.Row="1" Margin="5">Specialisation mask view</Label>
+        <ComboBox Grid.Column="1" Grid.Row="1" Margin="5"
                   Name="SpecMaskView"
                   SelectionChanged="SpecMaskView_SelectionChanged">
             <ComboBoxItem>Display languages</ComboBoxItem>
@@ -33,8 +43,8 @@
         </ComboBox>
         
         <!-- click action -->
-        <Label Grid.Column="0" Grid.Row="1" Margin="5">Double-click action</Label>
-        <ComboBox Grid.Column="1" Grid.Row="1" Margin=" 5" Name="ClickAction"
+        <Label Grid.Column="0" Grid.Row="2" Margin="5">Double-click action</Label>
+        <ComboBox Grid.Column="1" Grid.Row="2" Margin=" 5" Name="ClickAction"
                   SelectionChanged="ClickAction_SelectionChanged">
             <ComboBoxItem>Open file</ComboBoxItem>
             <ComboBoxItem>Only open in Yura</ComboBoxItem>
@@ -42,8 +52,8 @@
         </ComboBox>
 
         <!-- file associations -->
-        <Label Grid.Column="0" Grid.Row="2" Margin="5">File associations</Label>
-        <Button Grid.Column="1" Grid.Row="2" Margin="5" Name="FileAssociations"
+        <Label Grid.Column="0" Grid.Row="3" Margin="5">File associations</Label>
+        <Button Grid.Column="1" Grid.Row="3" Margin="5" Name="FileAssociations"
                 Click="FileAssociations_Click">Update</Button>
     </Grid>
 </Window>
