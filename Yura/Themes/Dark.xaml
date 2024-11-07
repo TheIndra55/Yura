@@ -1,17 +1,75 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:local="clr-namespace:Yura">
 
-    <SolidColorBrush x:Key="BackgroundColor" Color="Black" />
-    <SolidColorBrush x:Key="ForegroundColor" Color="White" />
+    <SolidColorBrush x:Key="PrimaryBackground" Color="#1E1E1E" />
+    <SolidColorBrush x:Key="SecondaryBackground" Color="#252526" />
+    <SolidColorBrush x:Key="SecondaryHover" Color="#2a2d2e" />
+    <SolidColorBrush x:Key="ForegroundColor" Color="#D4D4D4" />
 
-    <Style TargetType="ListView">
-        <Setter Property="Background" Value="{StaticResource BackgroundColor}" />
+    <!-- Below needs to be moved to some Base.xml file -->
+
+    <Style TargetType="local:MainWindow">
+        <Setter Property="Background" Value="{StaticResource PrimaryBackground}" />
+    </Style>
+
+    <Style TargetType="local:SettingsWindow">
+        <Setter Property="Background" Value="{StaticResource PrimaryBackground}" />
+    </Style>
+
+    <Style TargetType="Label">
         <Setter Property="Foreground" Value="{StaticResource ForegroundColor}" />
     </Style>
 
-    <Style TargetType="TreeView">
-        <Setter Property="Background" Value="{StaticResource BackgroundColor}" />
+    <Style TargetType="TextBox">
+        <Setter Property="Background" Value="{StaticResource PrimaryBackground}" />
         <Setter Property="Foreground" Value="{StaticResource ForegroundColor}" />
+    </Style>
+
+    <Style TargetType="Menu">
+        <Setter Property="Background" Value="{StaticResource PrimaryBackground}" />
+        <Setter Property="Foreground" Value="{StaticResource ForegroundColor}" />
+    </Style>
+
+    <Style TargetType="MenuItem">
+        <Setter Property="Background" Value="{StaticResource PrimaryBackground}" />
+        <Setter Property="Foreground" Value="{StaticResource ForegroundColor}" />
+    </Style>
+
+    <Style TargetType="ListView">
+        <Setter Property="Background" Value="{StaticResource PrimaryBackground}" />
+        <Setter Property="Foreground" Value="{StaticResource ForegroundColor}" />
+    </Style>
+
+    <Style TargetType="ListViewItem">
+        <Style.Triggers>
+            <Trigger Property="IsSelected" Value="True">
+                <Setter Property="Background" Value="{StaticResource SecondaryBackground}" />
+            </Trigger>
+            <Trigger Property="IsMouseOver" Value="True">
+                <Setter Property="Background" Value="{StaticResource SecondaryHover}" />
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+
+    <Style TargetType="TreeView">
+        <Setter Property="Background" Value="{StaticResource PrimaryBackground}" />
+        <Setter Property="Foreground" Value="{StaticResource ForegroundColor}" />
+    </Style>
+
+    <Style TargetType="TreeViewItem">
+        <Setter Property="Foreground" Value="{StaticResource ForegroundColor}" />
+    </Style>
+
+    <Style TargetType="GridViewColumnHeader">
+        <Setter Property="Background" Value="{StaticResource SecondaryBackground}" />
+        <Setter Property="Foreground" Value="{StaticResource ForegroundColor}" />
+
+        <Style.Triggers>
+            <Trigger Property="IsMouseOver" Value="True">
+                <Setter Property="Background" Value="{StaticResource SecondaryHover}" />
+            </Trigger>
+        </Style.Triggers>
     </Style>
 
 </ResourceDictionary>
