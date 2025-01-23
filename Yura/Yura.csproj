@@ -27,6 +27,10 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Yura.Shared\Yura.Shared.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Resource Include="Images\BinaryFile.png" />
     <Resource Include="Images\ClassFile.png" />
     <Resource Include="Images\FolderClosed.png" />

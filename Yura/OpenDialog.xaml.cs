@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Windows;
 using System.Windows.Controls;
+using Yura.Shared.IO;
 
 namespace Yura
 {
@@ -41,11 +42,11 @@ namespace Yura
             DialogResult = true;
         }
 
-        public bool LittleEndian
+        public Endianness Endianness
         {
             get
             {
-                return (EndiannessSelect.SelectedItem as ComboBoxItem).Content.ToString() == "Little-endian";
+                return (Endianness)EndiannessSelect.SelectedIndex;
             }
         }
 

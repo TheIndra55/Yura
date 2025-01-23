@@ -1,5 +1,6 @@
 ﻿using System;
 using System.IO;
+using Yura.Shared.IO;
 
 namespace Yura
 {
@@ -52,11 +53,11 @@ namespace Yura
             }
         }
 
-        public bool LittleEndian
+        public Endianness Endianness
         {
             get
             {
-                return GetOption("-endianness") != "big";
+                return GetOption("-endianness") != "big" ? Endianness.LittleEndian : Endianness.BigEndian;
             }
         }
 

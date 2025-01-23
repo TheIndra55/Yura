@@ -2,11 +2,10 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
-using Yura.Archive;
 using Yura.Formats;
+using Yura.Shared.Archive;
 
 namespace Yura
 {
