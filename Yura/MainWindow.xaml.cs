@@ -144,6 +144,7 @@ namespace Yura
             {
                 Path = bigfile,
                 Endianness = settings.Endianness,
+                Platform = settings.Platform,
                 Alignment = settings.Alignment,
                 FileList = list
             };

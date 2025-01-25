@@ -38,8 +38,8 @@ namespace Yura.Shared.Archive
             var numArchives = reader.ReadUInt32();
             var numRecords = reader.ReadUInt32();
 
-            // Skip 4 bytes, or 8 in version 5 or later
-            reader.Position += version < 5 ? 4 : 8;
+            // Skip 4 bytes, or 8 in version 5 or later (unless Orbis)
+            reader.Position += version >= 5 && Options.Platform != Platform.Orbis ? 8 : 4;
 
             // Skip over the config name
             reader.Position += 32;

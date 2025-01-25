@@ -16,6 +16,11 @@ namespace Yura.Shared.Archive
         public Endianness Endianness { get; set; }
 
         /// <summary>
+        /// Gets or sets the archive platform
+        /// </summary>
+        public Platform Platform { get; set; }
+
+        /// <summary>
         /// Gets or sets the archive alignment
         /// </summary>
         public int Alignment { get; set; }
