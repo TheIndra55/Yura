@@ -1,11 +1,13 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
-VisualStudioVersion = 17.12.35506.116 d17.12
+VisualStudioVersion = 17.12.35506.116
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Yura", "Yura\Yura.csproj", "{7D73C719-E756-4019-9C62-B318F1B61776}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Yura.Shared", "Yura.Shared\Yura.Shared.csproj", "{67F16917-AD1D-485A-B419-A3360766365D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Yura.Test", "Yura.Test\Yura.Test.csproj", "{AD8EDAE9-3B48-4437-AAA3-AEAD7127FDA0}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,6 +23,10 @@ Global
 		{67F16917-AD1D-485A-B419-A3360766365D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{67F16917-AD1D-485A-B419-A3360766365D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{67F16917-AD1D-485A-B419-A3360766365D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AD8EDAE9-3B48-4437-AAA3-AEAD7127FDA0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AD8EDAE9-3B48-4437-AAA3-AEAD7127FDA0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AD8EDAE9-3B48-4437-AAA3-AEAD7127FDA0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AD8EDAE9-3B48-4437-AAA3-AEAD7127FDA0}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
