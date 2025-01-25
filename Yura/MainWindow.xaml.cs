@@ -223,15 +223,15 @@ namespace Yura
             var folder = e.NewValue as DirectoryViewFolder;
 
             // if path is null then get root
-            SwitchDirectory(folder.Path == null ? "\\" : folder.Path + "\\");
+            SwitchDirectory(folder.Path);
         }
 
         public void SwitchDirectory(string path, string selectedFile = null)
         {
-            var files = _bigfile.GetFiles(path);
+            var files = GetFiles(path);
             var bigfile = Path.GetFileName(_bigfile.Name);
 
-            if (path[0] == '\\')
+            if (path == null)
             {
                 PathBox.Text = bigfile;
             }
@@ -241,6 +241,16 @@ namespace Yura
             }
 
             ShowFiles(files, selectedFile);
+        }
+
+        private List<ArchiveRecord> GetFiles(string path)
+        {
+            if (path == null)
+            {
+                return _bigfile.Records.Where(x => x.Name == null).ToList();
+            }
+
+            return _bigfile.GetFiles(path);
         }
 
         private void ShowFiles(List<ArchiveRecord> files, string selectedFile = null)
