@@ -38,7 +38,8 @@ namespace Yura.Shared.Archive
             var numArchives = reader.ReadUInt32();
             var numRecords = reader.ReadUInt32();
 
-            reader.Position += 4;
+            // Skip 4 bytes, or 8 in version 5 or later
+            reader.Position += version < 5 ? 4 : 8;
 
             // Skip over the config name
             reader.Position += 32;

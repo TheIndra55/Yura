@@ -1,9 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Yura.Shared.IO;
 
 namespace Yura.Shared.Archive
@@ -27,7 +23,7 @@ namespace Yura.Shared.Archive
                 throw new ArgumentException("Bigfile has more than a million files, did you select the right endianness?");
             }
 
-            // Read the file hashes
+            // Read the file name hashes
             var hashes = new uint[numRecords];
 
             for (var i = 0; i < numRecords; i++)
