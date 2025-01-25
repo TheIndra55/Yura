@@ -53,15 +53,16 @@
         <Label Grid.Column="0" Grid.Row="3">Platform</Label>
         <ComboBox Name="TextureFormatSelect" Grid.Column="1" Grid.Row="3">
             <ComboBoxItem IsSelected="True">PC</ComboBoxItem>
-            <ComboBoxItem>PS2</ComboBoxItem>
-            <ComboBoxItem>PSP</ComboBoxItem>
-            <ComboBoxItem>PS3</ComboBoxItem>
-            <ComboBoxItem>PS4</ComboBoxItem>
+            <ComboBoxItem>PlayStation 2</ComboBoxItem>
+            <ComboBoxItem>PlayStation Portable</ComboBoxItem>
+            <ComboBoxItem>PlayStation 3</ComboBoxItem>
+            <ComboBoxItem>PlayStation 4</ComboBoxItem>
             <ComboBoxItem>Xbox</ComboBoxItem>
             <ComboBoxItem>Xbox 360</ComboBoxItem>
             <ComboBoxItem>Xbox One</ComboBoxItem>
             <ComboBoxItem>Xbox Series X</ComboBoxItem>
             <ComboBoxItem>Wii</ComboBoxItem>
+            <ComboBoxItem>GameCube</ComboBoxItem>
         </ComboBox>
 
         <Label Grid.Column="0" Grid.Row="4">Alignment</Label>

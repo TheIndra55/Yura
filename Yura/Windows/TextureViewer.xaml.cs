@@ -3,6 +3,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using Yura.Formats;
 using Yura.Shared.IO;
+using Yura.Shared.Util;
 
 namespace Yura
 {
@@ -25,13 +26,13 @@ namespace Yura
 
             BitmapSource image;
 
-            switch (TextureFormat)
+            switch (Platform)
             {
-                case TextureFormat.Wii:
+                case Platform.Wii:
                     image = new CMPRTexture(width, height, textureData);
                     break;
 
-                case TextureFormat.Ps3:
+                case Platform.Ps3:
                     image = new CMPRTexture(width, height, textureData);
                     break;
 
@@ -45,7 +46,7 @@ namespace Yura
 
         public Endianness Endianness { get; set; }
 
-        public TextureFormat TextureFormat { get; set; }
+        public Platform Platform { get; set; }
 
         public byte[] Texture
         {

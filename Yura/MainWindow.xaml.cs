@@ -37,7 +37,7 @@ namespace Yura
         private Dictionary<string, Tuple<string, BitmapImage>> _fileTypes;
 
         private Endianness _endianness;
-        private TextureFormat _textureFormat;
+        private Platform _platform;
         private Game _currentGame;
 
         // the current open bigfile
@@ -136,7 +136,7 @@ namespace Yura
             var list = (settings.FileList == null) ? null : new FileList(settings.FileList, settings.Game != Game.Tiger);
 
             _endianness = settings.Endianness;
-            _textureFormat = settings.TextureFormat;
+            _platform = settings.Platform;
             _currentGame = settings.Game;
 
             // Open the archive with the following options
@@ -384,7 +384,7 @@ namespace Yura
             if (size > 4 && file[0] == 33 && file[1] == 'W' && file[2] == 'A' && file[3] == 'R')
             {
                 var viewer = new TextureViewer();
-                viewer.TextureFormat = _textureFormat;
+                viewer.Platform = _platform;
                 viewer.Endianness = _endianness;
 
                 viewer.Texture = file;

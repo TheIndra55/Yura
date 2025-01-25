@@ -1,6 +1,7 @@
 ﻿using System;
 using System.IO;
 using Yura.Shared.IO;
+using Yura.Shared.Util;
 
 namespace Yura
 {
@@ -90,16 +91,16 @@ namespace Yura
             }
         }
 
-        public TextureFormat TextureFormat
+        public Platform Platform
         {
             get
             {
-                if (Enum.TryParse(typeof(TextureFormat), GetOption("-platform"), true, out var game))
+                if (Enum.TryParse(typeof(Platform), GetOption("-platform"), true, out var game))
                 {
-                    return (TextureFormat)game;
+                    return (Platform)game;
                 }
 
-                return TextureFormat.Pc;
+                return Platform.Pc;
             }
         }
     }

@@ -1,4 +1,5 @@
 ﻿using Yura.Shared.IO;
+using Yura.Shared.Util;
 
 namespace Yura
 {
@@ -8,6 +9,6 @@ namespace Yura
         public Endianness Endianness { get; }
         public int Alignment { get; }
         public string FileList { get; }
-        public TextureFormat TextureFormat { get; }
+        public Platform Platform { get; }
     }
 }
