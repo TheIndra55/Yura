@@ -1,5 +1,6 @@
 ﻿using System;
 using System.IO;
+using System.IO.Compression;
 using Yura.Shared.IO;
 
 namespace Yura.Shared.Archive
@@ -54,22 +55,42 @@ namespace Yura.Shared.Archive
         {
             var file = record as Record;
 
-            // Calculate the location of the file
-            var offset = (long)file.Offset << 11;
-            var part = offset / Options.Alignment;
+            // Convert sectors to file position
+            var position = (long)file.Offset << 11;
 
-            var path = GetFilePart((int)part);
+            var (path, offset) = GetFileAndOffset(position);
 
             // Read the file
             var stream = File.OpenRead(path);
             var data = new byte[file.Size];
 
-            stream.Position = offset % Options.Alignment;
-            stream.ReadExactly(data);
+            if (file.CompressedSize == 0)
+            {
+                stream.Position = offset;
+                stream.ReadExactly(data);
+            }
+            else
+            {
+                ReadCompressed(stream, offset, file.CompressedSize, data);
+            }
 
             stream.Close();
 
             return data;
+        }
+
+        private static void ReadCompressed(Stream stream, long offset, uint size, Span<byte> buffer)
+        {
+            // Read the compressed data
+            var data = new byte[size];
+
+            stream.Position = offset;
+            stream.ReadExactly(data);
+
+            // Decompress the data
+            var zlib = new ZLibStream(new MemoryStream(data), CompressionMode.Decompress);
+
+            zlib.ReadExactly(buffer);
         }
 
         private class Record : ArchiveRecord

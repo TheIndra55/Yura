@@ -97,7 +97,7 @@ namespace Yura
 
         private void GameSelect_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            AlignmentField.IsEnabled = GameSelect.SelectedIndex == (int)Game.Legend;
+            AlignmentField.IsEnabled = GameSelect.SelectedIndex <= (int)Game.Legend;
         }
     }
 

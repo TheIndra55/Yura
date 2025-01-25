@@ -50,11 +50,13 @@ namespace Yura.Shared.Archive
         {
             var file = record as Record;
 
+            var (path, offset) = GetFileAndOffset(file.Offset);
+
             // Read the file
-            var stream = File.OpenRead(Options.Path);
+            var stream = File.OpenRead(path);
             var data = new byte[file.Size];
 
-            stream.Position = file.Offset;
+            stream.Position = offset;
             stream.ReadExactly(data);
 
             stream.Close();

@@ -68,6 +68,25 @@ namespace Yura.Shared.Archive
             return Path.Combine(directory, name + "." + part.ToString("000") + extension);
         }
 
+        /// <summary>
+        /// From an offset and the alignment get the physical file and offset
+        /// </summary>
+        /// <param name="offset">The offset of the file</param>
+        /// <returns>The file and offset</returns>
+        protected (string, long) GetFileAndOffset(long offset)
+        {
+            // Check whether the archive is split over multiple files
+            if (Path.GetExtension(Name) == ".000")
+            {
+                var part = offset / Options.Alignment;
+                var path = GetFilePart((int)part);
+
+                return (path, offset % Options.Alignment);
+            }
+
+            return (Name, offset);
+        }
+
         private static string[] Split(string path)
         {
             return path.Split('\\', StringSplitOptions.RemoveEmptyEntries);
