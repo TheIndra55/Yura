@@ -11,8 +11,10 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media.Imaging;
-using Yura.Archive;
 using Yura.Formats;
+using Yura.Shared.Archive;
+using Yura.Shared.IO;
+using Yura.Shared.Util;
 
 namespace Yura
 {
@@ -34,8 +36,8 @@ namespace Yura
         // dictionary of ext,file type for names and icons
         private Dictionary<string, Tuple<string, BitmapImage>> _fileTypes;
 
-        private bool _littleEndian;
-        private TextureFormat _textureFormat;
+        private Endianness _endianness;
+        private Platform _platform;
         private Game _currentGame;
 
         // the current open bigfile
@@ -133,30 +135,38 @@ namespace Yura
         {
             var list = (settings.FileList == null) ? null : new FileList(settings.FileList, settings.Game != Game.Tiger);
 
-            _littleEndian = settings.LittleEndian;
-            _textureFormat = settings.TextureFormat;
+            _endianness = settings.Endianness;
+            _platform = settings.Platform;
+            _currentGame = settings.Game;
+
+            // Open the archive with the following options
+            var options = new ArchiveOptions
+            {
+                Path = bigfile,
+                Endianness = settings.Endianness,
+                Platform = settings.Platform,
+                Alignment = settings.Alignment,
+                FileList = list
+            };
 
             switch (settings.Game)
             {
                 case Game.Legend:
-                    _bigfile = new LegendArchive(bigfile, settings.Alignment, _littleEndian);
+                    _bigfile = new LegendArchive(options);
                     break;
                 case Game.DeusEx:
-                    _bigfile = new DeusExArchive(bigfile, _littleEndian);
+                    _bigfile = new DeusExArchive(options);
                     break;
                 case Game.Defiance:
-                    _bigfile = new DefianceArchive(bigfile, settings.TextureFormat, _littleEndian);
+                    _bigfile = new DefianceArchive(options);
                     break;
                 case Game.Tiger:
-                    _bigfile = new TigerArchive(bigfile, settings.TextureFormat, _littleEndian);
+                    _bigfile = new TigerArchive(options);
                     break;
                 default:
                     MessageBox.Show(this, Properties.Resources.NoGameSelectedMessage, Properties.Resources.NoGameSelected, MessageBoxButton.OK, MessageBoxImage.Exclamation);
                     return;
             }
-
-            _currentGame = settings.Game;
-            _bigfile.FileList = list;
 
             PathBox.Text = Path.GetFileName(bigfile);
 
@@ -169,6 +179,9 @@ namespace Yura
                 MessageBox.Show(this, e.Message, Properties.Resources.FailedOpenBigfile, MessageBoxButton.OK, MessageBoxImage.Error);
                 return;
             }
+
+            // Resolve all file names
+            list?.Resolve(_bigfile.Records);
 
             UpdateTree();
         }
@@ -211,15 +224,15 @@ namespace Yura
             var folder = e.NewValue as DirectoryViewFolder;
 
             // if path is null then get root
-            SwitchDirectory(folder.Path == null ? "\\" : folder.Path + "\\");
+            SwitchDirectory(folder.Path);
         }
 
         public void SwitchDirectory(string path, string selectedFile = null)
         {
-            var files = _bigfile.GetFolder(path);
-            var bigfile = Path.GetFileName(_bigfile.Filename);
+            var files = GetFiles(path);
+            var bigfile = Path.GetFileName(_bigfile.Name);
 
-            if (path[0] == '\\')
+            if (path == null)
             {
                 PathBox.Text = bigfile;
             }
@@ -229,6 +242,16 @@ namespace Yura
             }
 
             ShowFiles(files, selectedFile);
+        }
+
+        private List<ArchiveRecord> GetFiles(string path)
+        {
+            if (path == null)
+            {
+                return _bigfile.Records.Where(x => x.Name == null).ToList();
+            }
+
+            return _bigfile.GetFiles(path);
         }
 
         private void ShowFiles(List<ArchiveRecord> files, string selectedFile = null)
@@ -285,7 +308,7 @@ namespace Yura
 
         private string GetSpecMask(ArchiveRecord record)
         {
-            var specMask = _bigfile.GetSpecialisationMask(record);
+            var specMask = (uint)record.Specialisation;
 
             switch ((SpecMaskView) Properties.Settings.Default.SpecMaskView)
             {
@@ -362,8 +385,8 @@ namespace Yura
             if (size > 4 && file[0] == 33 && file[1] == 'W' && file[2] == 'A' && file[3] == 'R')
             {
                 var viewer = new TextureViewer();
-                viewer.TextureFormat = _textureFormat;
-                viewer.LittleEndian = _littleEndian;
+                viewer.Platform = _platform;
+                viewer.Endianness = _endianness;
 
                 viewer.Texture = file;
                 viewer.Title = item.Name;
@@ -376,7 +399,7 @@ namespace Yura
             if (item.Name == "locals.bin")
             {
                 var viewer = new LocaleViewer();
-                viewer.LittleEndian = _littleEndian;
+                viewer.Endianness = _endianness;
                 viewer.Data = file;
 
                 viewer.Show();
@@ -530,7 +553,7 @@ namespace Yura
         {
             var searchWindow = new SearchWindow() { Owner = this };
             searchWindow.Archive = _bigfile;
-            searchWindow.LittleEndian = _littleEndian;
+            searchWindow.Endianness = _endianness;
 
             searchWindow.Show();
         }
@@ -546,7 +569,7 @@ namespace Yura
 
             foreach (var file in _bigfile.Records)
             {
-                output.AppendLine($"{file.Hash:X8}\t{file.Size}\t{_bigfile.GetSpecialisationMask(file):X}\t{file.Name}");
+                output.AppendLine($"{file.Hash:X8}\t{file.Size}\t{(uint)file.Specialisation:X}\t{file.Name}");
             }
 
             Clipboard.SetText(output.ToString());

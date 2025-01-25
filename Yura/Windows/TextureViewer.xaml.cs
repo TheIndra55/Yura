@@ -2,7 +2,8 @@
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using Yura.Formats;
-using StreamReader = Yura.IO.StreamReader;
+using Yura.Shared.IO;
+using Yura.Shared.Util;
 
 namespace Yura
 {
@@ -16,7 +17,7 @@ namespace Yura
             InitializeComponent();
         }
         
-        private void CreateImage(int width, int height, StreamReader reader)
+        private void CreateImage(int width, int height, DataReader reader)
         {
             int stride = width * 4 + (width % 4);
 
@@ -25,13 +26,13 @@ namespace Yura
 
             BitmapSource image;
 
-            switch (TextureFormat)
+            switch (Platform)
             {
-                case TextureFormat.Wii:
+                case Platform.Wii:
                     image = new CMPRTexture(width, height, textureData);
                     break;
 
-                case TextureFormat.Ps3:
+                case Platform.Ps3:
                     image = new CMPRTexture(width, height, textureData);
                     break;
 
@@ -43,15 +44,15 @@ namespace Yura
             TextureImage.Source = image;
         }
 
-        public bool LittleEndian { get; set; }
+        public Endianness Endianness { get; set; }
 
-        public TextureFormat TextureFormat { get; set; }
+        public Platform Platform { get; set; }
 
         public byte[] Texture
         {
             set
             {
-                var reader = new StreamReader(value, LittleEndian);
+                var reader = new DataReader(value, Endianness);
 
                 var magic = reader.ReadInt32();
                 var start = reader.ReadInt32();

@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.IO;
 using System.Windows;
 using System.Windows.Controls;
+using Yura.Shared.IO;
+using Yura.Shared.Util;
 
 namespace Yura
 {
@@ -41,11 +43,11 @@ namespace Yura
             DialogResult = true;
         }
 
-        public bool LittleEndian
+        public Endianness Endianness
         {
             get
             {
-                return (EndiannessSelect.SelectedItem as ComboBoxItem).Content.ToString() == "Little-endian";
+                return (Endianness)EndiannessSelect.SelectedIndex;
             }
         }
 
@@ -71,11 +73,11 @@ namespace Yura
             }
         }
 
-        public TextureFormat TextureFormat
+        public Platform Platform
         {
             get
             {
-                return (TextureFormat)TextureFormatSelect.SelectedIndex;
+                return (Platform)TextureFormatSelect.SelectedIndex;
             }
         }
 
@@ -95,29 +97,8 @@ namespace Yura
 
         private void GameSelect_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            AlignmentField.IsEnabled = GameSelect.SelectedIndex == (int)Game.Legend;
+            AlignmentField.IsEnabled = GameSelect.SelectedIndex <= (int)Game.Legend;
         }
-    }
-
-    public enum TextureFormat
-    {
-        Pc,
-
-        // PlayStation
-        Ps2,
-        Psp,
-        Ps3,
-        Orbis,
-
-        // Xbox
-        Xbox,
-        Xenon,
-        Durango,
-        Scarlett,
-
-        // Nintendo
-        Wii,
-        GameCube
     }
 
     public enum Game

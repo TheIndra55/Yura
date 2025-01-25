@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
-using StreamReader = Yura.IO.StreamReader;
+using System.Text;
+using Yura.Shared.IO;
 
 namespace Yura.Formats
 {
@@ -8,9 +9,9 @@ namespace Yura.Formats
         public Language Language { get; private set; }
         public List<string> Entries { get; private set; }
 
-        public LocaleFile(byte[] data, bool litteEndian)
+        public LocaleFile(byte[] data, Endianness endianness)
         {
-            var reader = new StreamReader(data, litteEndian);
+            var reader = new DataReader(data, endianness);
 
             Entries = new List<string>();
             Language = (Language)reader.ReadUInt32();
@@ -28,7 +29,7 @@ namespace Yura.Formats
                 reader.BaseStream.Position = offset;
 
                 // read the string
-                var str = reader.ReadString();
+                var str = reader.ReadString(Encoding.UTF8);
                 Entries.Add(str);
 
                 reader.BaseStream.Position = cursor;

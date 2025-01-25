@@ -29,7 +29,7 @@ namespace Yura
                     // add information about open bigfile
                     if (_window != null && _window.Bigfile != null)
                     {
-                        sentryEvent.SetExtra("bigfile", _window.Bigfile.Filename);
+                        sentryEvent.SetExtra("bigfile", _window.Bigfile.Name);
                         sentryEvent.SetExtra("game", _window.Game);
                     }
 

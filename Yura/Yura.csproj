@@ -6,7 +6,7 @@
     <UseWPF>true</UseWPF>
     <UseWindowsForms>true</UseWindowsForms>
     <ApplicationIcon>Yura.ico</ApplicationIcon>
-    <Version>1.6</Version>
+    <Version>1.7.0</Version>
   </PropertyGroup>
 
   <ItemGroup>
@@ -24,6 +24,10 @@
 
   <ItemGroup>
     <PackageReference Include="Sentry" Version="3.35.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Yura.Shared\Yura.Shared.csproj" />
   </ItemGroup>
 
   <ItemGroup>

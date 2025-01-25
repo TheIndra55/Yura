@@ -4,6 +4,7 @@ using System.Linq;
 using System.Windows;
 using System.Windows.Input;
 using Yura.Formats;
+using Yura.Shared.IO;
 
 namespace Yura
 {
@@ -19,13 +20,13 @@ namespace Yura
             InitializeComponent();
         }
 
-        public bool LittleEndian { get; set; }
+        public Endianness Endianness { get; set; }
 
         public byte[] Data
         {
             set
             {
-                _locale = new LocaleFile(value, LittleEndian);
+                _locale = new LocaleFile(value, Endianness);
 
                 // append current language to title
                 Title += " - " + _locale.Language.ToString();

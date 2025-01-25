@@ -1,11 +1,14 @@
-﻿namespace Yura
+﻿using Yura.Shared.IO;
+using Yura.Shared.Util;
+
+namespace Yura
 {
     public interface IFileSettings
     {
         public Game Game { get; }
-        public bool LittleEndian { get; }
+        public Endianness Endianness { get; }
         public int Alignment { get; }
         public string FileList { get; }
-        public TextureFormat TextureFormat { get; }
+        public Platform Platform { get; }
     }
 }

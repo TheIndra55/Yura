@@ -2,11 +2,11 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
-using Yura.Archive;
 using Yura.Formats;
+using Yura.Shared.Archive;
+using Yura.Shared.IO;
 
 namespace Yura
 {
@@ -17,7 +17,7 @@ namespace Yura
     {
         public ArchiveFile Archive { get; set; }
 
-        public bool LittleEndian { get; set; }
+        public Endianness Endianness { get; set; }
 
         public SearchWindow()
         {
@@ -99,7 +99,7 @@ namespace Yura
                 }
 
                 // read drm file
-                var drm = new DrmFile(content, LittleEndian);
+                var drm = new DrmFile(content, Endianness);
 
                 // check sections
                 foreach (var section in drm.Sections)
