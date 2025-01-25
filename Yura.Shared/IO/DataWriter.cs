@@ -13,7 +13,7 @@ namespace Yura.Shared.IO
         private readonly Endianness _endianness;
 
         /// <summary>
-        /// Initializes a new data writer with the the specified stream and endianness
+        /// Initializes a new data writer with the specified stream and endianness
         /// </summary>
         /// <param name="stream">The output stream</param>
         /// <param name="endianness">The endianness of the data</param>

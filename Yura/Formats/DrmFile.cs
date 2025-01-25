@@ -1,9 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Yura.IO;
+using Yura.Shared.IO;
 
 namespace Yura.Formats
 {
@@ -18,11 +15,11 @@ namespace Yura.Formats
         /// <param name="data">The data of the file</param>
         /// <param name="litteEndian">Whether the file should be read as little endian</param>
         /// <param name="relocate">Whether to relocate relocations, currently unsupported</param>
-        public DrmFile(byte[] data, bool litteEndian, bool relocate = false)
+        public DrmFile(byte[] data, Endianness endianness, bool relocate = false)
         {
             _sections = new List<Section>();
 
-            var reader = new StreamReader(data, litteEndian);
+            var reader = new DataReader(data, endianness);
 
             // read file version
             if (reader.ReadInt32() != 14)

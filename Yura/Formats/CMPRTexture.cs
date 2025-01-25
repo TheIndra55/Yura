@@ -2,7 +2,7 @@
 using System.Windows;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using Yura.IO;
+using Yura.Shared.IO;
 
 namespace Yura.Formats
 {
@@ -29,7 +29,7 @@ namespace Yura.Formats
         // most of the code below for CMPR algo is copied from there
         public override void CopyPixels(Int32Rect sourceRect, Array pixels, int stride, int _)
         {
-            var reader = new StreamReader(_buffer, false);
+            var reader = new DataReader(_buffer, Endianness.LittleEndian);
 
             for (int y = 0; y < _height; y += 8)
             {

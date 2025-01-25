@@ -1,6 +1,8 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Text;
 
 namespace Yura.Shared.IO
 {
@@ -13,7 +15,7 @@ namespace Yura.Shared.IO
         private readonly Endianness _endianness;
 
         /// <summary>
-        /// Initializes a new data reader with the the specified stream and endianness
+        /// Initializes a new data reader with the specified stream and endianness
         /// </summary>
         /// <param name="stream">The input stream</param>
         /// <param name="endianness">The endianness of the data</param>
@@ -23,6 +25,15 @@ namespace Yura.Shared.IO
 
             _stream = stream;
             _endianness = endianness;
+        }
+
+        /// <summary>
+        /// Initializes a new data reader from a buffer
+        /// </summary>
+        /// <param name="data">The input buffer</param>
+        /// <param name="endianness">The endianness of the data</param>
+        public DataReader(byte[] data, Endianness endianness) : this(new MemoryStream(data), endianness)
+        {
         }
 
         /// <summary>
@@ -60,6 +71,22 @@ namespace Yura.Shared.IO
             }
 
             return data;
+        }
+
+        /// <summary>
+        /// Reads a byte from the stream
+        /// </summary>
+        /// <returns>The read byte</returns>
+        public byte ReadByte()
+        {
+            var value = _stream.ReadByte();
+
+            if (value == -1)
+            {
+                throw new EndOfStreamException();
+            }
+
+            return (byte)value;
         }
 
         /// <summary>
@@ -123,6 +150,24 @@ namespace Yura.Shared.IO
         public float ReadSingle()
         {
             return BitConverter.ToSingle(InternalRead(stackalloc byte[4]));
+        }
+
+        /// <summary>
+        /// Reads a null-terminated string from the stream
+        /// </summary>
+        /// <param name="encoding">The encoding of the string</param>
+        /// <returns>The read string</returns>
+        public string ReadString(Encoding encoding)
+        {
+            List<byte> data = [];
+
+            byte value;
+            while ((value = ReadByte()) != 0)
+            {
+                data.Add(value);
+            }
+
+            return encoding.GetString(data.ToArray());
         }
     }
 }

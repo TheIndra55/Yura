@@ -36,7 +36,7 @@ namespace Yura
         // dictionary of ext,file type for names and icons
         private Dictionary<string, Tuple<string, BitmapImage>> _fileTypes;
 
-        private bool _littleEndian;
+        private Endianness _endianness;
         private TextureFormat _textureFormat;
         private Game _currentGame;
 
@@ -135,7 +135,7 @@ namespace Yura
         {
             var list = (settings.FileList == null) ? null : new FileList(settings.FileList, settings.Game != Game.Tiger);
 
-            _littleEndian = settings.Endianness == Endianness.LittleEndian;
+            _endianness = settings.Endianness;
             _textureFormat = settings.TextureFormat;
             _currentGame = settings.Game;
 
@@ -385,7 +385,7 @@ namespace Yura
             {
                 var viewer = new TextureViewer();
                 viewer.TextureFormat = _textureFormat;
-                viewer.LittleEndian = _littleEndian;
+                viewer.Endianness = _endianness;
 
                 viewer.Texture = file;
                 viewer.Title = item.Name;
@@ -398,7 +398,7 @@ namespace Yura
             if (item.Name == "locals.bin")
             {
                 var viewer = new LocaleViewer();
-                viewer.LittleEndian = _littleEndian;
+                viewer.Endianness = _endianness;
                 viewer.Data = file;
 
                 viewer.Show();
@@ -552,7 +552,7 @@ namespace Yura
         {
             var searchWindow = new SearchWindow() { Owner = this };
             searchWindow.Archive = _bigfile;
-            searchWindow.LittleEndian = _littleEndian;
+            searchWindow.Endianness = _endianness;
 
             searchWindow.Show();
         }
