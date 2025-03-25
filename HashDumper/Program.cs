@@ -16,24 +16,24 @@ var command = new RootCommand("Scan a folder for archives and dump all unique ha
         description: "The path of the output file"),
 
     new Option<Game>(
-        name: "--game",
+        aliases: ["-g", "--game"],
         description: "The game of the files",
         getDefaultValue: () => Game.Legend),
 
     new Option<Endianness>(
-        name: "--endianness",
+        aliases: ["-e", "--endianness"],
         description: "The endianness of the files",
         getDefaultValue: () => Endianness.LittleEndian),
 
     new Option<string>(
-        name: "--pattern",
+        aliases: ["-p", "--pattern"],
         description: "The pattern of the archives to scan",
         getDefaultValue: () => "*.000"),
 
-    new Option<OutputFormat>(
-        name: "--output-format",
+    new Option<Format>(
+        aliases: ["-f", "--format"],
         description: "The format to output the data in",
-        getDefaultValue: () => OutputFormat.Text),
+        getDefaultValue: () => Format.Text),
 };
 
 command.Handler = CommandHandler.Create(Execute);
@@ -42,7 +42,7 @@ command.Handler = CommandHandler.Create(Execute);
 await command.InvokeAsync(args);
 
 static void Execute(
-    DirectoryInfo path, FileInfo output, Game game, Endianness endianness, string pattern, OutputFormat outputFormat)
+    DirectoryInfo path, FileInfo output, Game game, Endianness endianness, string pattern, Format format)
 {
     List<ulong> hashes = [];
 
@@ -71,13 +71,13 @@ static void Execute(
     }
 
     // Write the output
-    switch (outputFormat)
+    switch (format)
     {
-        case OutputFormat.Text:
+        case Format.Text:
             File.WriteAllLines(output.FullName, hashes.Select(hash => hash.ToString("X8")));
 
             break;
-        case OutputFormat.Json:
+        case Format.Json:
             File.WriteAllText(output.FullName, JsonSerializer.Serialize(hashes));
 
             break;
@@ -102,7 +102,7 @@ enum Game
     Tiger
 }
 
-enum OutputFormat
+enum Format
 {
     Text,
     Json
