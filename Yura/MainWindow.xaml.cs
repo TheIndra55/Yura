@@ -373,7 +373,7 @@ namespace Yura
             {
                 file = _bigfile.Read(item.File);
             }
-            catch (FileNotFoundException)
+            catch (Exception ex) when (ex is FileNotFoundException || ex is EndOfStreamException)
             {
                 MessageBox.Show(Properties.Resources.FilePartNotFoundMessage, Properties.Resources.FilePartNotFound, MessageBoxButton.OK, MessageBoxImage.Error);
                 return;
@@ -455,7 +455,7 @@ namespace Yura
                         {
                             file = _bigfile.Read(item.File);
                         }
-                        catch (FileNotFoundException)
+                        catch (Exception ex) when (ex is FileNotFoundException || ex is EndOfStreamException)
                         {
                             MessageBox.Show(Properties.Resources.FilePartNotFoundMessage, Properties.Resources.FilePartNotFound, MessageBoxButton.OK, MessageBoxImage.Error);
                             return;
@@ -503,7 +503,7 @@ namespace Yura
                 {
                     file = _bigfile.Read(item.File);
                 }
-                catch (FileNotFoundException)
+                catch (Exception ex) when (ex is FileNotFoundException || ex is EndOfStreamException)
                 {
                     MessageBox.Show(Properties.Resources.FilePartNotFoundMessage, Properties.Resources.FilePartNotFound, MessageBoxButton.OK, MessageBoxImage.Error);
                     return;
