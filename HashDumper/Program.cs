@@ -30,6 +30,10 @@ var command = new RootCommand("Scan a folder for archives and dump all unique ha
         description: "The pattern of the archives to scan",
         getDefaultValue: () => "*.000"),
 
+    new Option<bool>(
+        aliases: ["-r", "--recursive"],
+        description: "Whether to recursively scan for archives"),
+
     new Option<Format>(
         aliases: ["-f", "--format"],
         description: "The format to output the data in",
@@ -42,11 +46,11 @@ command.Handler = CommandHandler.Create(Execute);
 await command.InvokeAsync(args);
 
 static void Execute(
-    DirectoryInfo path, FileInfo output, Game game, Endianness endianness, string pattern, Format format)
+    DirectoryInfo path, FileInfo output, Game game, Endianness endianness, string pattern, bool recursive, Format format)
 {
     List<ulong> hashes = [];
 
-    foreach (var file in path.GetFiles(pattern))
+    foreach (var file in path.GetFiles(pattern, recursive ? SearchOption.AllDirectories : SearchOption.TopDirectoryOnly))
     {
         Console.WriteLine(file.Name);
 
