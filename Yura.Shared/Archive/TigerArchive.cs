@@ -37,9 +37,13 @@ namespace Yura.Shared.Archive
 
             var numArchives = reader.ReadUInt32();
             var numRecords = reader.ReadUInt32();
+            var dlcIndex = reader.ReadUInt32();
 
-            // Skip 4 bytes, or 8 in version 5 or later (unless Orbis)
-            reader.Position += version >= 5 && Options.Platform != Platform.Orbis ? 8 : 4;
+            // Workaround for an extra field in the PC version of TR11
+            if (version == 5 && reader.PeekUInt32() < 255)
+            {
+                reader.Position += 4;
+            }
 
             // Skip over the config name
             reader.Position += 32;

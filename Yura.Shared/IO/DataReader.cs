@@ -153,6 +153,39 @@ namespace Yura.Shared.IO
         }
 
         /// <summary>
+        /// Reads a byte from the stream without advancing the position
+        /// </summary>
+        /// <returns>The read byte</returns>
+        public byte PeekByte()
+        {
+            var value = ReadByte();
+            _stream.Position -= 1;
+            return value;
+        }
+
+        /// <summary>
+        /// Reads a signed 32-bit integer from the stream without advancing the position
+        /// </summary>
+        /// <returns>The read integer</returns>
+        public int PeekInt32()
+        {
+            var value = ReadInt32();
+            _stream.Position -= 4;
+            return value;
+        }
+
+        /// <summary>
+        /// Reads an unsigned 32-bit integer from the stream without advancing the position
+        /// </summary>
+        /// <returns>The read integer</returns>
+        public uint PeekUInt32()
+        {
+            var value = ReadUInt32();
+            _stream.Position -= 4;
+            return value;
+        }
+
+        /// <summary>
         /// Reads a null-terminated string from the stream
         /// </summary>
         /// <param name="encoding">The encoding of the string</param>
