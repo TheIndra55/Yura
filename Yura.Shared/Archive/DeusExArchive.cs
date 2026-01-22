@@ -19,6 +19,7 @@ namespace Yura.Shared.Archive
 
             // Read the header
             _alignment = reader.ReadUInt32();
+            if (_alignment == 0) _alignment = 0x7FF00000;
 
             // Skip over the config name
             reader.Position += 64;
