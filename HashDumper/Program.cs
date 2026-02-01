@@ -48,7 +48,7 @@ await command.InvokeAsync(args);
 static void Execute(
     DirectoryInfo path, FileInfo output, Game game, Endianness endianness, string pattern, bool recursive, Format format)
 {
-    List<ulong> hashes = [];
+    HashSet<ulong> hashes = [];
 
     foreach (var file in path.GetFiles(pattern, recursive ? SearchOption.AllDirectories : SearchOption.TopDirectoryOnly))
     {
@@ -67,10 +67,7 @@ static void Execute(
         // Add all hashes
         foreach (var record in archive.Records)
         {
-            if (!hashes.Contains(record.Hash))
-            {
-                hashes.Add(record.Hash);
-            }
+            hashes.Add(record.Hash);
         }
     }
 
