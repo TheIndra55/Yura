@@ -26,8 +26,8 @@ namespace Yura.Shared.Archive
 
             var version = reader.ReadUInt32();
 
-            // Check for version 3, 4 or 5
-            if (version < 3 || version > 5)
+            // Check for version 3, 4, 5 or 8
+            if ((version < 3 || version > 5) && version != 8)
             {
                 throw new NotImplementedException($"Tiger archive version {version} is not supported");
             }
@@ -48,6 +48,15 @@ namespace Yura.Shared.Archive
             // Skip over the config name
             reader.Position += 32;
 
+            // Read the languages
+            if (version == 8)
+            {
+                var unk = reader.ReadUInt32();
+                var numLanguages = reader.ReadUInt32();
+
+                reader.Position += 24 * numLanguages;
+            }
+
             // Read the file records
             for (var i = 0; i < numRecords; i++)
             {
@@ -62,12 +71,12 @@ namespace Yura.Shared.Archive
                 else
                 {
                     record.Hash = reader.ReadUInt64();
-                    record.Specialisation = reader.ReadUInt64();
+                    record.Specialisation = version == 5 ? reader.ReadUInt64() : reader.ReadUInt32();
                     record.Size = reader.ReadUInt32();
                 }
-                
-                // Skip in TR2 and later
-                if (version >= 4)
+
+                // Skip in TR2 and TR11
+                if (version == 4 || version == 5)
                 {
                     reader.Position += 4;
                 }
@@ -95,6 +104,17 @@ namespace Yura.Shared.Archive
 
                     record.Index = packedOffset & 0xFFFF;
                     record.Offset = (packedOffset >> 32) & 0xFFFFFFFF;
+                }
+                // AV1
+                else if (version == 8)
+                {
+                    var offset = reader.ReadUInt32();
+                    var unk = reader.ReadUInt16();
+                    var packed = reader.ReadUInt16();
+
+                    // TODO stream
+                    record.Index = (ulong)packed >> 6;
+                    record.Offset = offset;
                 }
 
                 Records.Add(record);
