@@ -14,6 +14,9 @@ namespace Yura.Shared.Archive
             var stream = File.OpenRead(Options.Path);
             var reader = new DataReader(stream, Options.Endianness);
 
+            // TODO
+            var is32 = stream.Length < 4L * 1000 * 1000 * 1000;
+
             // Read the number of files
             var numFiles = reader.ReadUInt16();
 
@@ -34,11 +37,11 @@ namespace Yura.Shared.Archive
                 {
                     Hash = hashes[i],
 
-                    Size = reader.ReadUInt32(),
-                    Offset = reader.ReadUInt32()
+                    Size = is32 ? reader.ReadUInt32() : (uint)reader.ReadUInt64(),
+                    Offset = is32 ? reader.ReadUInt32() : reader.ReadInt64()
                 };
 
-                reader.Position += 4;
+                reader.Position += is32 ? 4 : 8;
 
                 Records.Add(record);
             }
@@ -66,7 +69,7 @@ namespace Yura.Shared.Archive
 
         private class Record : ArchiveRecord
         {
-            public uint Offset { get; set; }
+            public long Offset { get; set; }
         }
     }
 }
