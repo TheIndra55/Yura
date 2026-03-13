@@ -89,7 +89,7 @@ namespace Yura.Shared.Archive
 
         private static string[] Split(string path)
         {
-            return path.Split('\\', StringSplitOptions.RemoveEmptyEntries);
+            return path.Split(['\\', '/'], StringSplitOptions.RemoveEmptyEntries);
         }
     }
 }

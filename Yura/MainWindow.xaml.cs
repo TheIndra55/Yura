@@ -203,7 +203,7 @@ namespace Yura
                     continue;
                 }
 
-                var hierarchy = file.Name.Split('\\', StringSplitOptions.RemoveEmptyEntries);
+                var hierarchy = file.Name.Split(['\\', '/'], StringSplitOptions.RemoveEmptyEntries);
                 var parent = root;
 
                 var i = 1;
@@ -270,7 +270,7 @@ namespace Yura
                 }
                 else
                 {
-                    name = file.Name.Split("\\").Last();
+                    name = file.Name.Split(['\\', '/']).Last();
                 }
 
                 var view = new FileViewFile
@@ -612,7 +612,7 @@ namespace Yura
                     if (record.Name != null)
                     {
                         // extract filename from full path
-                        filename = record.Name.Split("\\", StringSplitOptions.RemoveEmptyEntries).Last();
+                        filename = record.Name.Split(['\\', '/'], StringSplitOptions.RemoveEmptyEntries).Last();
                     }
                     else
                     {
