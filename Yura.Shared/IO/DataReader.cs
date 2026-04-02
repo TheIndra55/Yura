@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Runtime.InteropServices;
 using System.Text;
 
 namespace Yura.Shared.IO
@@ -183,6 +184,19 @@ namespace Yura.Shared.IO
             var value = ReadUInt32();
             _stream.Position -= 4;
             return value;
+        }
+
+        /// <summary>
+        /// Reads a structure from the stream
+        /// </summary>
+        /// <typeparam name="T">The structure type</typeparam>
+        /// <returns>The read structure</returns>
+        public T ReadStruct<T>() where T : struct
+        {
+            Span<byte> data = stackalloc byte[Marshal.SizeOf<T>()];
+            _stream.ReadExactly(data);
+
+            return DataMarshal.Read<T>(data, _endianness);
         }
 
         /// <summary>

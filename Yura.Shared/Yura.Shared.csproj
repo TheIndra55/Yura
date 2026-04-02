@@ -4,7 +4,11 @@
     <TargetFramework>net10.0</TargetFramework>
     <Nullable>enable</Nullable>
 
-    <Version>1.7.2</Version>
+    <Version>1.0.0</Version>
   </PropertyGroup>
+
+  <ItemGroup>
+    <InternalsVisibleTo Include="Yura.Test" />
+  </ItemGroup>
 
 </Project>

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.IO;
 using System.Linq;
+using System.Runtime.InteropServices;
 
 namespace Yura.Shared.IO
 {
@@ -120,6 +121,19 @@ namespace Yura.Shared.IO
         public void Write(float value)
         {
             InternalWrite(BitConverter.GetBytes(value));
+        }
+
+        /// <summary>
+        /// Writes a structure to the stream
+        /// </summary>
+        /// <typeparam name="T">The structure type</typeparam>
+        /// <param name="value">The stucture to write</param>
+        public void WriteStruct<T>(T value) where T : struct
+        {
+            Span<byte> data = stackalloc byte[Marshal.SizeOf<T>()];
+            DataMarshal.Write(data, value, _endianness);
+
+            _stream.Write(data);
         }
     }
 }
