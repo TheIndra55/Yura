@@ -1,0 +1,6 @@
+<Solution>
+  <Project Path="HashDumper/HashDumper.csproj" />
+  <Project Path="Yura.Shared/Yura.Shared.csproj" />
+  <Project Path="Yura.Test/Yura.Test.csproj" />
+  <Project Path="Yura/Yura.csproj" />
+</Solution>
