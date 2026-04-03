@@ -24,7 +24,7 @@ namespace Yura
                 options.Dsn = SentryDsn;
                 options.IsGlobalModeEnabled = true;
 
-                options.BeforeSend = sentryEvent =>
+                options.SetBeforeSend(sentryEvent =>
                 {
                     // add information about open bigfile
                     if (_window != null && _window.Bigfile != null)
@@ -34,7 +34,7 @@ namespace Yura
                     }
 
                     return sentryEvent;
-                };
+                });
             });
 #endif
         }
